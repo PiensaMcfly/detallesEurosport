@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App EurtoSport Chile</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="tablaclientes.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
+</head>
+<body>
+    
+<header></header>
+<main>
+  <div id="viewport">
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <header>
+      <a href="#">ADM EuroSport</a>
+    </header>
+    <ul class="nav">
+      <li>
+        <a href="#">
+          <i class="zmdi zmdi-view-dashboard"></i> Buscar Clientes
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="zmdi zmdi-link"></i> Clientes
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="zmdi zmdi-widgets"></i> Autos
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="zmdi zmdi-calendar"></i> Events
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="zmdi zmdi-info-outline"></i> About
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="zmdi zmdi-settings"></i> Services
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="zmdi zmdi-comment-more"></i> Cerrar Sesion
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!-- Content -->
+  <div id="content">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="#"><i class="zmdi zmdi-notifications text-danger"></i>
+            </a>
+          </li>
+          <li><a href="#">Inicio</a></li>
+
+        </ul>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <h1>Ultimos Clientes</h1>
+      <p>
+       Ingresa los Datos del Auto o Cliente
+        <code>#content</code>.
+        <!-- TABLA DE ULTIMOS CLIENTES  -->
+         <!-- Container -->
+<div class="container">
+
+  <!-- Main Content-->
+  <div class="masthead">
+    
+<input type="text" id="buscar" onkeyup="buscar()" placeholder="Buscar en tabla" title="Empieza a escribir para buscar">
+    
+    <div class="table-responsive">
+      <table class="table" id="tabla" data-sort="table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope=row>1</th>
+            <td>First Last</td>
+            <td>Two Items</td>
+            <td>01/01/2015</td>
+            <td>$200</td>
+          </tr>
+          <tr>
+            <th scope=row>2</th>
+            <td>Firstname Lastname</td>
+            <td>One Item</td>
+            <td>06/01/2015</td>
+            <td>$100</td>
+          </tr>
+          <tr>
+            <th scope=row>3</th>
+            <td>Name Another</td>
+            <td>One Item</td>
+            <td>12/15/2014</td>
+            <td>$100</td>
+          </tr>
+          <tr>
+            <th scope=row>4</th>
+            <td>One More</td>
+            <td>Three Items</td>
+            <td>01/20/2016</td>
+            <td>$300</td>
+          </tr>
+          <tr>
+            <th scope=row>5</th>
+            <td>Name Right Here</td>
+            <td>Two Items</td>
+            <td>01/20/2016</td>
+            <td>$200</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- /container -->
+
+      </p>
+    </div>
+  </div>
+</div>
+</main>
+<footer></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="Tablaclientes.js"></script>
+</body>
+</html>
