@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoNuevo</title>
+</head>
+<body>
+    
+    <h1>Nuevo Auto</h1>
+    <!-- <form action="#" th:action="@{/auto/creado}" th:object="${auto}" method="post">
+        <div>
+            <label for="modelo">Modelo:</label>
+            <input type="text" id="modelo" name="modelo" th:field="*{modelo}" required/>
+        </div>
+        <div>
+            <label for="marca">Marca:</label>
+            <input type="text" id="marca" name="marca" th:field="*{marca}" required/>
+        </div>
+        <div>
+            <label for="patente">Patente:</label>
+            <input type="text" id="patente" name="patente" th:field="*{patente}" required/>
+        </div>
+        <div>
+            <label for="vin">VIN:</label>
+            <input type="text" id="vin" name="vin" th:field="*{vin}" required/>
+        </div>
+        <div>
+            <label for="kilometraje">Kilometraje:</label>
+            <input type="text" id="kilometraje" name="kilometraje" th:field="*{kilometraje}" required/>
+        </div>
+        <div>
+            <label for="comentario">Comentario:</label>
+            <textarea id="comentario" name="comentario" th:field="*{comentario}"></textarea>
+        </div>
+        <div>
+            <label for="fechadeCreacion">Fecha de Creación:</label>
+            <input type="date" id="fechadeCreacion" name="fechadeCreacion" th:field="*{fechadeCreacion}" required/>
+        </div>
+        <div>
+            <label for="cliente">Cliente:</label>
+            <select id="cliente" th:field="*{cliente.id}" required>
+                <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}"></option>
+            </select>
+        </div>
+        <div>
+            <button type="submit">Guardar</button>
+        </div>
+    </form> -->
+
+
+
+    <form action="/auto/registrado" method="POST">
+        <div>
+            <label for="modelo">Modelo:</label>
+            <input type="text"  name="modelo"  required/>
+        </div>
+        <div>
+            <label for="marca">Marca:</label>
+            <input type="text"  name="marca"  required/>
+        </div>
+        <div>
+            <label for="patente">Patente:</label>
+            <input type="text"  name="patente"  required/>
+        </div>
+        <div>
+            <label for="vin">VIN:</label>
+            <input type="text" name="vin" required/>
+        </div>
+        <div>
+            <label for="kilometraje">Kilometraje:</label>
+            <input type="text"  name="kilometraje" required/>
+        </div>
+        <div>
+            <label for="comentario">Comentario:</label>
+            <textarea  name="comentario" ></textarea>
+        </div>
+        <div>
+            <label for="fechadeCreacion">Fecha de Creación:</label>
+            <input type="date"  name="fechadeCreacion"  required/>
+        </div>
+       
+        <div>
+            <button type="submit">Guardar</button>
+        </div>
+    </form>
+
+
+<h1>Nueva Cotizacion</h1>
+
+<h3>Cliente Form</h3>
+<form action="/nuevaCotizacion/sumbit" method="post">
+
+    <label for="rut">Rut:</label>
+    <input type="text" id="rut" name="rut" required>
+
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required>
+
+    <label for="apellido">Apellido:</label>
+    <input type="text" id="apellido" name="apellido" required>
+
+    <label for="telefono">Teléfono:</label>
+    <input type="tel" id="telefono" name="telefono" > 
+
+     <label for="mail">Correo Electrónico:</label>
+    <input type="email" id="mail" name="mail" required>
+
+    <label for="numeroVin">Número VIN:</label>
+    <input type="text" id="numeroVin" name="numeroVin">
+    
+    <button type="submit">Guardar Cliente</button>
+</form>
+
+
+</body>
+</html>

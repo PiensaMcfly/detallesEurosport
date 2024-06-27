@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class HomeControlador {
     
-    @GetMapping("/")
+    @GetMapping("/inicio")
     public String index(){
-    return "index.hmtl";
+    return "Index1.hmtl";
     }
     
 }

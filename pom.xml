@@ -8,11 +8,11 @@
         <version>2.7.14</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.grupo5</groupId>
-    <artifactId>AppSalud</artifactId>
+    <groupId>com.taller</groupId>
+    <artifactId>AppEuro</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>AutoRepair</name>
-    <description>App de servicio de salud</description>
+    <description>App EuroSport Services</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
