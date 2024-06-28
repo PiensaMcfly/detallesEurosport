@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nuevo Cliente</title>
+</head>
+<body>
+    <h1>Nuevo Cliente</h1>
+    <form th:action="@{/clientes/sumbit}" th:object="${cliente}" method="post">
+        <label for="rut">RUT:</label>
+        <input type="text" id="rut" th:field="*{rut}" required><br>
+        
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" th:field="*{nombre}" required><br>
+        
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" th:field="*{apellido}" required><br>
+        
+        <label for="telefono">Teléfono:</label>
+        <input type="text" id="telefono" th:field="*{telefono}" required><br>
+        
+        <label for="mail">Correo Electrónico:</label>
+        <input type="email" id="mail" th:field="*{mail}" required><br>
+        
+        <label for="numeroVin">Número VIN:</label>
+        <input type="text" id="numeroVin" th:field="*{numeroVin}" required><br>
+        
+        <button type="submit">Guardar Cliente</button>
+    </form>
+
+
+
+
+</body>
+</html>

@@ -4,6 +4,7 @@
  */
 package com.taller.AppEuro.servicios;
 
+import com.taller.AppEuro.entities.Cliente;
 import com.taller.AppEuro.entities.Cotizacion;
 import com.taller.AppEuro.enumeraciones.Encargado;
 import com.taller.AppEuro.enumeraciones.EstadoCotizacion;
@@ -78,7 +79,8 @@ public class CotizacionService {
         cotizacionrepo.getOne(Long.MIN_VALUE).getIdCotizacion();
     }
 
-    private void validaciones(Long monto, String descripcion, EstadoCotizacion estado, Encargado encargado, String formaPago) throws MiException {
+    private void validaciones(Long monto, String descripcion, EstadoCotizacion estado, Encargado encargado, String formaPago) throws MiException 
+    {
 
         if (monto == null) {
             throw new MiException("El monto de la operacion no puede estar Vacio o Nulo");
@@ -91,4 +93,53 @@ public class CotizacionService {
         }
 
     }
+    
+    
+    //----------------------------SEGUNDA MANERA---------------------------------//
+    
+      @Transactional
+    public Cotizacion saveCotizacion(Long idCliente, Long monto, String descripcion, EstadoCotizacion estado, Encargado encargado, String formaPago) throws MiException {
+        // Validar cliente
+        Cliente cliente = clienterepo.findById(idCliente)
+                .orElseThrow(() -> new MiException("Cliente no encontrado"));
+
+        // Crear nueva cotización
+        Cotizacion cotizacion = new Cotizacion();
+        cotizacion.setMonto(monto);
+        cotizacion.setDescripcion(descripcion);
+        cotizacion.setEstado(estado);
+        cotizacion.setEncargado(encargado);
+        cotizacion.setFormaPago(formaPago);
+        cotizacion.setCliente(cliente);
+
+        return cotizacionrepo.save(cotizacion);
+    }
+
+    public List<Cotizacion> obtenerTodasLasCotizaciones() {
+        return cotizacionrepo.findAll();
+    }
+
+    public Optional<Cotizacion> obtenerCotizacionPorId(Long idCotizacion) {
+        return cotizacionrepo.findById(idCotizacion);
+    }
+
+    @Transactional
+    public Cotizacion actualizarCotizacion(Long idCotizacion, Long monto, String descripcion, EstadoCotizacion estado, Encargado encargado, String formaPago) throws MiException {
+        return cotizacionrepo.findById(idCotizacion)
+                .map(cotizacion -> {
+                    cotizacion.setMonto(monto);
+                    cotizacion.setDescripcion(descripcion);
+                    cotizacion.setEstado(estado);
+                    cotizacion.setEncargado(encargado);
+                    cotizacion.setFormaPago(formaPago);
+                    return cotizacionrepo.save(cotizacion);
+                })
+                .orElseThrow(() -> new MiException("Cotización no encontrada"));
+    }
+
+    @Transactional
+    public void deleteCotizacion(Long id) {
+        cotizacionrepo.deleteById(id);
+    }    
+    
 }

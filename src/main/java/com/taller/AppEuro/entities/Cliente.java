@@ -5,6 +5,7 @@
 package com.taller.AppEuro.entities;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,15 +25,17 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long idCliente;
-    private String Rut;
+    private String rut;
     private String nombre;
     private String apellido;
     private String telefono;
     private String mail;
     private String numeroVin;
     @OneToMany
+     (mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Auto> listaAuto;
     @OneToMany
+    (mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cotizacion> listaCotizacion;
 
     // Revisar las relaciones

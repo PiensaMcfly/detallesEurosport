@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,11 +27,13 @@ public class Cotizacion {
     private Long idCotizacion;
     private Long monto;
     private String descripcion;
-   // @ManyToOne
-   //private Cliente cliente;
     @Enumerated(EnumType.STRING)
     private EstadoCotizacion estado;
     @Enumerated(EnumType.STRING)
     private Encargado encargado;
     private String formaPago;
+   
+@ManyToOne
+ @JoinColumn(name = "cliente_id")
+ private Cliente cliente;
 }

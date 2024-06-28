@@ -11,6 +11,7 @@ import com.taller.AppEuro.exepciones.MiException;
 import com.taller.AppEuro.repository.IAutoRepository;
 import com.taller.AppEuro.repository.IClienteRepository;
 import com.taller.AppEuro.repository.ICotizacionRepository;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -51,11 +52,8 @@ public class ClienteService {
         clienterepo.save(cliente);
 
     }
-
-    
-    
-    
-//    Al este metodo de modificar puedo agregarle validaciones, estar atento para agregar 
+     
+//    Al este metodo  Modificar de modificar puedo agregarle validaciones, estar atento para agregar 
     
     public void modificarCliente(Long idCliente, String Rut, String nombre, String apellido, String telefono, String mail, String numeroVin, Long idAuto, Long idCotizacion) {
         Optional<Auto> respuestaAuto = autorepo.findById(idAuto);
@@ -123,4 +121,71 @@ public class ClienteService {
         }
         
     }
+
+    
+    //------------------------------------------------------------------///
+    
+  //SEGGUNDA OPCION de Crear 
+    @Transactional
+    public void saveCliente(String rut, String nombre, String apellido, String telefono, String mail, String numeroVin) throws MiException {
+        // Validaciones
+        validaciones(rut, nombre, apellido, telefono, mail, numeroVin);
+
+        // Crear cliente y asignar datos
+        Cliente cliente = new Cliente();
+        cliente.setRut(rut);
+        cliente.setNombre(nombre);
+        cliente.setApellido(apellido);
+        cliente.setTelefono(telefono);
+        cliente.setMail(mail);
+        cliente.setNumeroVin(numeroVin);
+
+        // Inicializar listas vacías
+        cliente.setListaAuto(new ArrayList<>());
+        cliente.setListaCotizacion(new ArrayList<>());
+
+        // Guardar cliente
+        clienterepo.save(cliente);
+    }
+    
+    public Cliente Save(Cliente cliente) {
+        return clienterepo.save(cliente);
+    }
+
+    public List<Cliente> obtenerTodosLosClientes() {
+        return clienterepo.findAll();
+    }
+
+    public Optional<Cliente> obtenerClientePorId(Long id) {
+        return clienterepo.findById(id);
+    }
+
+    public Cliente updateCliente(Long id, Cliente clienteActualizado) {
+        return clienterepo.findById(id)
+                .map(cliente -> {
+                    cliente.setRut(clienteActualizado.getRut());
+                    cliente.setNombre(clienteActualizado.getNombre());
+                    cliente.setApellido(clienteActualizado.getApellido());
+                    cliente.setTelefono(clienteActualizado.getTelefono());
+                    cliente.setMail(clienteActualizado.getMail());
+                    cliente.setNumeroVin(clienteActualizado.getNumeroVin());
+                    cliente.setListaAuto(clienteActualizado.getListaAuto());
+                    cliente.setListaCotizacion(clienteActualizado.getListaCotizacion());
+                    return clienterepo.save(cliente);
+                })
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+    }
+
+    public void deleteCliente(Long id) {
+        clienterepo.deleteById(id);
+    }
+
+    public Cliente actualizarCliente(Long id, Cliente clienteActualizado) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    
+    
 }
+
+

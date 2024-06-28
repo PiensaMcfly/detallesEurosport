@@ -14,7 +14,7 @@ public class HomeControlador {
     
     @GetMapping("/inicio")
     public String index(){
-    return "Index1.hmtl";
+    return "index.hmtl";
     }
     
 }

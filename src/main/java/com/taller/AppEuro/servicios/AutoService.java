@@ -112,4 +112,59 @@ public class AutoService {
  
     }
     
+    
+    
+    
+    //------------------------------SEGUNDA MANERA -----------------------------///
+    
+     @Transactional
+    public Auto saveAuto(Long clienteId, String modelo, String marca, String patente, String vin, String kilometraje, String comentario, Date fechadeCreacion) throws MiException {
+        // Validar cliente
+        Cliente cliente = clienterepo.findById(clienteId)
+                .orElseThrow(() -> new MiException("Cliente no encontrado"));
+
+        // Crear nuevo auto
+        Auto auto = new Auto();
+        auto.setModelo(modelo);
+        auto.setMarca(marca);
+        auto.setPatente(patente);
+        auto.setVin(vin);
+        auto.setKilometraje(kilometraje);
+        auto.setComentario(comentario);
+        auto.setFechadeCreacion(fechadeCreacion);
+        auto.setCliente(cliente);
+
+        return autorepo.save(auto);
+    }
+
+    public List<Auto> obtenerTodosLosAutos() {
+        return autorepo.findAll();
+    }
+
+    public Optional<Auto> obtenerAutoPorId(Long id) {
+        return autorepo.findById(id);
+    }
+
+    @Transactional
+    public Auto actualizarAuto(Long id, String modelo, String marca, String patente, String vin, String kilometraje, String comentario, Date fechadeCreacion) throws MiException {
+        return autorepo.findById(id)
+                .map(auto -> {
+                    auto.setModelo(modelo);
+                    auto.setMarca(marca);
+                    auto.setPatente(patente);
+                    auto.setVin(vin);
+                    auto.setKilometraje(kilometraje);
+                    auto.setComentario(comentario);
+                    auto.setFechadeCreacion(fechadeCreacion);
+                    return autorepo.save(auto);
+                })
+                .orElseThrow(() -> new MiException("Auto no encontrado"));
+    }
+
+    @Transactional
+    public void deleteAuto(Long id) {
+        autorepo.deleteById(id);
+    }
+    
+    
 }
