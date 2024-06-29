@@ -41,35 +41,29 @@ public class AutoControlador {
     private IAutoRepository autorepo;
     
     @GetMapping("/autos")
-    public String crearAuto() {
+    public String formulario() {
         return "auto_form.html";
     }
 
-    @PostMapping("/registrado")
-    public String AutoCreado(String modelo, String marca, String patente,
-            String vin, String kilometraje, String comentario, Date fechaCreacion)throws MiException {
-        System.out.println("modelo:"+ modelo + "marca:"+ marca + "Patente: "+patente + "VIN:"+ vin + "Kilometraje:"+ kilometraje + "comentario"+comentario +
-                "fecha"+fechaCreacion);
-        return "auto_form.html";
-
-    }
     
     //SEGUNDOS CONTROLERSSS------------con Thymeleaf----------------------------------
     
       @GetMapping("/nuevo")
     public String mostrarFormularioDeCreacion(Model model) {
+        
+    List<Cliente> clientes= clienteService.obtenerTodosLosClientes();
         model.addAttribute("auto", new Auto());
-        model.addAttribute("clientes", clienteService.obtenerTodosLosClientes());
+        model.addAttribute("clientes", clientes);
         return "auto_form.html";
     }
 
-    @PostMapping("/sumbit")
-    public String crearAuto(@ModelAttribute Auto auto) throws MiException {
-        autoService.saveAuto(auto.getCliente().getIdCliente(), auto.getModelo(), auto.getMarca(), auto.getPatente(), auto.getVin(), auto.getKilometraje(), auto.getComentario(), auto.getFechadeCreacion());
+    
+     @PostMapping("/save")
+    public String saveAuto(@ModelAttribute("auto") Auto auto) {
+        autorepo.save(auto);
         return "redirect:/autos/nuevo";
+    
     }
-    
-    
     //----------------------------------------------------
 
 

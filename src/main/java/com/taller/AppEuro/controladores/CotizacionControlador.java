@@ -4,10 +4,12 @@
  */
 package com.taller.AppEuro.controladores;
 
+import com.taller.AppEuro.entities.Cliente;
 import com.taller.AppEuro.entities.Cotizacion;
 import com.taller.AppEuro.enumeraciones.Encargado;
 import com.taller.AppEuro.enumeraciones.EstadoCotizacion;
 import com.taller.AppEuro.exepciones.MiException;
+import com.taller.AppEuro.repository.ICotizacionRepository;
 import com.taller.AppEuro.servicios.ClienteService;
 import com.taller.AppEuro.servicios.CotizacionService;
 import java.util.Date;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -34,21 +37,29 @@ public class CotizacionControlador {
 
     @Autowired
     private ClienteService clienteService;
+    
+    @Autowired 
+    private ICotizacionRepository cotirepo;
 
     @GetMapping("/nueva")
     public String mostrarFormularioDeCreacion(Model model) {
+        List<Cliente> clientes= clienteService.obtenerTodosLosClientes();
         model.addAttribute("cotizacion", new Cotizacion());
-        model.addAttribute("clientes", clienteService.obtenerTodosLosClientes());
+        model.addAttribute("clientes", clientes);
+        model.addAttribute("estados",EstadoCotizacion.values());
+        model.addAttribute("encargados", Encargado.values());
         return "coti_form.html";
     }
 
-    @PostMapping("/sumbit")
-    public String crearCotizacion(Cotizacion cotizacion) throws MiException {
-        cotizacionService.saveCotizacion(cotizacion.getCliente().getIdCliente(), cotizacion.getMonto(), cotizacion.getDescripcion(), cotizacion.getEstado(), cotizacion.getEncargado(), cotizacion.getFormaPago());
-        return "redirect:/cotizaciones";
+    
+     @PostMapping("/save")
+    public String saveCotizacion(@ModelAttribute("cotizacion") Cotizacion cotizacion) {
+        cotirepo.save(cotizacion);
+        return "redirect:/cotizaciones/nueva";
+    
     }
     
-    
+
     
     //----------------------------------Controladores 2 -------------------------------------------
     

@@ -5,11 +5,11 @@
 </head>
 <body>
     <h1>Nuevo Auto</h1>
-    <form th:action="@{/autos/sumbit}" th:object="${auto}" method="post">
-        <!-- <label for="cliente">Cliente:</label>
-        <select id="cliente" th:field="*{cliente.id}" required>
-            <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre} + ' ' + ${cliente.apellido}"></option>
-        </select><br> -->
+    <form th:action="@{/autos/save}" th:object="${auto}" method="post">
+        <label for="cliente">Cliente:</label>
+        <select id="cliente" th:field="*{cliente.idCliente}">
+            <option th:each="cliente : ${clientes}" th:value="${cliente.idCliente}" th:text="${cliente.nombre + ' ' + cliente.apellido}"></option>
+        </select>
         <label for="modelo">Modelo:</label>
         <input type="text" id="modelo" th:field="*{modelo}" required><br>
         <label for="marca">Marca:</label>
