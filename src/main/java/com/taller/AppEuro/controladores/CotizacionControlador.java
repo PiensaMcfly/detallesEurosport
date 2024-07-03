@@ -63,32 +63,30 @@ public class CotizacionControlador {
     
     //----------------------------------Controladores 2 -------------------------------------------
     
-      @GetMapping
-    public ResponseEntity<List<Cotizacion>> obtenerTodasLasCotizaciones() {
-        List<Cotizacion> cotizaciones = cotizacionService.obtenerTodasLasCotizaciones();
-        return ResponseEntity.ok(cotizaciones);
+  @GetMapping("/lista")
+    public String listarCotizaciones(Model model) {
+        List<Cotizacion>cotizaciones = cotizacionService.listarCotizaciones();
+        model.addAttribute("cotizaciones", cotizaciones);
+        return "lista_coti.html";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Cotizacion> obtenerCotizacionPorId(@PathVariable Long id) throws MiException {
+    @GetMapping("/editar/{id}")
+    public String editarCotizacion(@PathVariable Long id, Model model) {
         Optional<Cotizacion> cotizacion = cotizacionService.obtenerCotizacionPorId(id);
-        return cotizacion.map(ResponseEntity::ok).orElseThrow(() -> new MiException("Cotización no encontrada"));
+        model.addAttribute("cotizacion", cotizacion);
+        model.addAttribute("estados", EstadoCotizacion.values());
+        model.addAttribute("encargados", Encargado.values());
+        return "editar_coti.html";
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Cotizacion> actualizarCotizacion(@PathVariable Long id,
-                                                           @RequestParam Long monto,
-                                                           @RequestParam String descripcion,
-                                                           @RequestParam EstadoCotizacion estado,
-                                                           @RequestParam Encargado encargado,
-                                                           @RequestParam String formaPago) throws MiException {
-        Cotizacion cotizacionActualizada = cotizacionService.actualizarCotizacion(id, monto, descripcion, estado, encargado, formaPago);
-        return ResponseEntity.ok(cotizacionActualizada);
+    @PostMapping("/actualizar")
+    public String actualizarCotizacion(@ModelAttribute Cotizacion cotizacion) {
+        return "redirect:/cotizaciones";
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarCotizacion(@PathVariable Long id) {
+    @GetMapping("/eliminar/{id}")
+    public String eliminarCotizacion(@PathVariable Long id) {
         cotizacionService.deleteCotizacion(id);
-        return ResponseEntity.noContent().build();
+        return "redirect:/cotizaciones";
     }
 }

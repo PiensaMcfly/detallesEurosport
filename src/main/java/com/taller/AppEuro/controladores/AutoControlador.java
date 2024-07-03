@@ -67,11 +67,11 @@ public class AutoControlador {
     //----------------------------------------------------
 
 
-    @GetMapping
+    @GetMapping("/lista")
     public String obtenerTodosLosAutos(Model model) {
         List<Auto> autos = autoService.obtenerTodosLosAutos();
         model.addAttribute("autos", autos);
-        return "lista-autos";
+        return "lista_auto.html";
     }
 
     @GetMapping("/{id}")
@@ -85,19 +85,19 @@ public class AutoControlador {
         }
     }
 
-    @GetMapping("/{id}/editar")
+    @GetMapping("/editar/{id}")
     public String mostrarFormularioDeEdicion(@PathVariable Long id, Model model) throws MiException {
         Optional<Auto> auto = autoService.obtenerAutoPorId(id);
         if (auto.isPresent()) {
             model.addAttribute("auto", auto.get());
             model.addAttribute("clientes", clienteService.obtenerTodosLosClientes());
-            return "editar-auto";
+            return "editar_auto.html";
         } else {
             throw new MiException("Auto no encontrado");
         }
     }
 
-    @PostMapping("/{id}/actualizar")
+    @PostMapping("/actualizar/{id}")
     public String actualizarAuto(@PathVariable Long id, @ModelAttribute Auto autoActualizado) throws MiException {
         autoService.actualizarAuto(id, autoActualizado.getModelo(), autoActualizado.getMarca(), autoActualizado.getPatente(), autoActualizado.getVin(), autoActualizado.getKilometraje(), autoActualizado.getComentario(), autoActualizado.getFechadeCreacion());
         return "redirect:/autos";

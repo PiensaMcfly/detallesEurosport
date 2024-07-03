@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="EDITRA"></title>
+</head>
+<body>
+    <!-- <h1 th:text="${cotizacion.idCotizacion == null} ? 'Registrar Nueva Cotización' : 'Editar Cotización'"></h1> -->
+    <form th:action="@{${cotizacion.idCotizacion == null} ? '/cotizaciones/guardar' : '/cotizaciones/actualizar/{id}(id=${cotizacion.idCotizacion})'}" th:object="${cotizacion}" method="post">
+        <label for="cliente">Cliente:</label>
+        <select id="cliente" th:field="*{cliente.idCliente}" required>
+            <option th:each="cliente : ${clientes}" th:value="${cliente.idCliente}" th:text="${cliente.nombre} + ' ' + ${cliente.apellido}"></option>
+        </select><br/>
+
+        <!-- <label for="auto">Auto:</label>
+        <select id="auto" th:field="*{auto.id}" required>
+            <option th:each="auto : ${autos}" th:value="${auto.id}" th:text="${auto.marca} + ' ' + ${auto.modelo}"></option>
+        </select><br/> -->
+
+        <label for="estado">Estado:</label>
+        <select id="estado" th:field="*{estado}" required>
+            <option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}"></option>
+        </select><br/>
+
+        <label for="encargado">Encargado:</label>
+        <select id="encargado" th:field="*{encargado}" required>
+            <option th:each="encargado : ${encargados}" th:value="${encargado}" th:text="${encargado}"></option>
+        </select><br/>
+
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" th:field="*{descripcion}" required></textarea><br/>
+
+        <label for="monto">Monto:</label>
+        <input type="number" id="monto" th:field="*{monto}" required/><br/>
+
+        <button type="submit" th:text="${cotizacion.idCotizacion == null} ? 'Registrar' : 'Actualizar'"></button>
+    </form>
+</body>
+</html>

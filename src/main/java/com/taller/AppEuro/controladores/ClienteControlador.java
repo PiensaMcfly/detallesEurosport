@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -42,41 +43,37 @@ public class ClienteControlador {
     }
     
     
-    //Crontoladores 2  SIn THYMELEAF--------------------------------------------------------
+    //--------------------------------------------------------
     
-     @PostMapping
-    public ResponseEntity<Cliente> crearCliente(@RequestParam String rut,
-                                                @RequestParam String nombre,
-                                                @RequestParam String apellido,
-                                                @RequestParam String telefono,
-                                                @RequestParam String mail,
-                                                @RequestParam String numeroVin) throws MiException {
-        clienteService.crearCliente(rut, nombre, apellido, telefono, mail, numeroVin);
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Cliente>> obtenerTodosLosClientes() {
+   @GetMapping ("/lista")
+    public String obtenerTodosLosClientes(Model model) {
         List<Cliente> clientes = clienteService.obtenerTodosLosClientes();
-        return ResponseEntity.ok(clientes);
+        model.addAttribute("clientes", clientes);
+        return "lista_clientes.html";
     }
+   //--------------------------------------------------------
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Long id) throws MiException {
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioDeEditarCliente(@PathVariable Long id, Model model) throws MiException {
         Optional<Cliente> cliente = clienteService.obtenerClientePorId(id);
-        return cliente.map(ResponseEntity::ok).orElseThrow(() -> new MiException("Cliente no encontrado"));
+        if (cliente.isPresent()) {
+            model.addAttribute("cliente", cliente.get());
+            return "editar_cliente.html";
+        } else {
+            throw new MiException("Cliente no encontrado");
+        }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Cliente> actualizarCliente(@PathVariable Long id, @RequestBody Cliente clienteActualizado) throws MiException {
-        Cliente cliente = clienteService.actualizarCliente(id, clienteActualizado);
-        return ResponseEntity.ok(cliente);
+    @PostMapping("/actualizar/{id}")
+    public String actualizarCliente(@PathVariable Long id, @ModelAttribute Cliente clienteActualizado) throws MiException {
+        clienteService.updateCliente(id, clienteActualizado);
+        return "redirect:/clientes/lista";
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarCliente(@PathVariable Long id) {
+    @GetMapping("/eliminar/{id}")
+    public String eliminarCliente(@PathVariable Long id) {
         clienteService.deleteCliente(id);
-        return ResponseEntity.noContent().build();
+        return "redirect:/clientes/lista";
     }
 }
     

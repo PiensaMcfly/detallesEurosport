@@ -1,0 +1,31 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Cotizaciones</title>
+</head>
+<body>
+    <h1>Lista de Cotizaciones</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Auto</th>
+            <th>Estado</th>
+            <th>Encargado</th>
+            <th>Acciones</th>
+        </tr>
+        <tr th:each="cotizacion : ${cotizaciones}">
+            <td th:text="${cotizacion.idCotizacion}"></td>
+            <td th:text="${cotizacion.cliente.nombre}"></td>
+            <!-- <td th:text="${cotizacion.auto.marca}"></td> -->
+             <!-- ver si puedo relacionar una cotizacion con el AUTO y cliente -->
+            <td th:text="${cotizacion.estado}"></td>
+            <td th:text="${cotizacion.encargado}"></td>
+            <td>
+                <a th:href="@{/cotizaciones/editar/{id}(id=${cotizacion.idCotizacion})}">Editar</a>
+                <a th:href="@{/cotizaciones/eliminar/{id}(id=${cotizacion.idCotizacion})}">Eliminar</a>
+            </td>
+        </tr>
+    </table>
+    <a href="/registro">Registrar Nueva Cotización</a>
+</body>
+</html>
