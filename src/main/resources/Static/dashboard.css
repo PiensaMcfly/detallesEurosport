@@ -1,161 +1,78 @@
-* {
-  margin: 0px;
-  padding: 0px;
-}
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500');
 
 body {
-  background-image: url(/img/fondodash2.jpg);
-  background-repeat: no-repeat;
-  background-size: 100%;
-  background-attachment: fixed;
-  padding-bottom: 100px;
+  overflow-x: hidden;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
 }
 
-h3 {
-  align-content: center;
-  color: aliceblue;
-  text-shadow: 10px;
+/* Toggle Styles */
+
+#viewport {
+  padding-left: 250px;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#content {
+  width: 100%;
+  position: relative;
+  margin-right: 0;
+}
+
+/* Sidebar Styles */
+
+#sidebar {
+  z-index: 1000;
+  position: fixed;
+  left: 250px;
+  width: 250px;
+  height: 100%;
+  margin-left: -250px;
+  overflow-y: auto;
+  background: #37474F;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#sidebar header {
+  background-color: #263238;
+  font-size: 20px;
+  line-height: 52px;
   text-align: center;
 }
 
-a {
-  color: black;
-}
-
-/* contenedor de todo Side - form - tabla  */
-.main-container {
-  flex-direction: row;
-  align-items: flex-start;
-  padding-left: 300px; /* Ancho del sidebar más margen */
-}
-
-/* Contenedor del Formulario  */
-.container1 {
-  background-color: aliceblue;
-  opacity: 0.8;
-  padding-left: 25px;
-  padding-bottom: 20px;
-  padding-top: 60px;
-  width: 80%;
-  text-align: left;
-  border-radius: 10px;
-}
-/* Contenedor de los dashboard  */
-.containerDash {
-  background-color: rgb(157, 187, 213);
-  opacity: 0.8;
-  padding-left: 10px;
-  padding-bottom: 20px;
-  padding-top: 60px;
-  width: 95%;
-  text-align: left;
-  border-radius: 10px;
-}
-.listaDash{
-  padding-left: 1px;
-  padding-bottom: 1px;
-  width: 80%;
-
-
-}
-
-.miboton {
-  width: 96%;
-}
-
-.hed {
-  display: flex;
-  gap: 45px;
-  align-items: end;
-}
-
-.sidebar1 {
-  background-color: #c5d7e9;
+#sidebar header a {
   color: #fff;
-  width: 300px;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding-top: 200px;
-
-}
-/* ===RESPONSIVE DEL SIDEBAR==== */
-@media (max-width: 768px) {
-
-  /* Cambios de estilo cuando la pantalla es más pequeña, por ejemplo, 
-  en dispositivos móviles */
-  .sidebar1 {
-      width: 100%; /* Ocupar todo el ancho en pantallas pequeñas */
-      position: static; /* Volver a la posición estática en pantallas pequeñas */
-  }
-  .main-container {
-      margin-left: 0; /* Eliminar margen izquierdo en pantallas pequeñas */
-  }
+  display: block;
+  text-decoration: none;
 }
 
-
-/* Animacion Del Formulario */
-#scale-up-top-right {
-  animation: scale-up-top-right 0.4s;
-}
-@keyframes scale-up-top-right {
-  0% {
-    transform: scale(0.5);
-    transform-origin: top right;
-  }
-  100% {
-    transform: scale(1);
-    transform-origin: top right;
-  }
-}
-/* -------------------------- */
-
-
-
-/* ====Tabla con Usuarios=== */
-.listaADM1 {
-  background-color: aliceblue;
-  opacity: 0.8;
-  margin-top: 45px;
-  width: 80%;
-  align-items: center;
-  border-radius: 10px;
-  margin-left: 300px;
+#sidebar header a:hover {
+  color: #fff;
 }
 
-.textoadm {
-  padding: 25px;
-  background-color: aliceblue;
-  opacity: 0.8;
-  border-radius: 20px;
+#sidebar .nav{
+  
 }
 
-/* Animacion Imagen Perfil Dashs */
-#rotate-scale-up-vertical {
-  animation: rotate-scale-up-vertical 0.5s linear both;
-}
-@keyframes rotate-scale-up-vertical {
-  0% {
-    transform: scale(1) rotateY(0);
-  }
-  50% {
-    transform: scale(2) rotateY(180deg);
-  }
-  100% {
-    transform: scale(1) rotateY(360deg);
-  }
+#sidebar .nav a{
+  background: none;
+  border-bottom: 1px solid #455A64;
+  color: #CFD8DC;
+  font-size: 14px;
+  padding: 16px 24px;
 }
 
-
-
-.datosPaciente {
-
-background-color: aliceblue;
-
+#sidebar .nav a:hover{
+  background: none;
+  color: #ECEFF1;
 }
 
-.datosPaciente h1{
-  display: flex;
-  justify-content: space-around;
+#sidebar .nav a i{
+  margin-right: 16px;
 }

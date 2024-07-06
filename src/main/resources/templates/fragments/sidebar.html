@@ -2,161 +2,47 @@
 
 <div th:fragment="sidebar">
 
-  <div id="scale-up-top-right" class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 300px;">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-      <svg class="bi pe-none me-2" width="40" height="32">
-        <use xlink:href="#bootstrap" />
-      </svg>
-      <span class="fs-4">Menú</span>
-    </a>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li  class="nav-item"  sec:Authorize="hasAnyRole ('ADMIN')">
-        <a href="/admin/dashboard" class="nav-link active" aria-current="page">
-          <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:href="" />
-          </svg>
-          Dashboard
+  <div id="sidebar">
+    <img src="/img/logoEurto.jpeg" alt="logoEuro" width="100%">
+    <header>
+      <a href="#">PANEL ADMIN</a>
+    </header>
+    <ul class="nav">
+      <li>
+        <a href="/dashboard/panel">
+          <i class="zmdi zmdi-view-dashboard"></i> Inicio
         </a>
       </li>
-      <li sec:Authorize="hasAnyRole('ADMIN')">
-        <a href="/" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:href="/" />
-          </svg>
-          Home
+      <li>
+        <a href="/clientes/lista">
+          <i class="zmdi zmdi-link"></i> Clientes
         </a>
       </li>
-      <li sec:Authorize="hasAnyRole('PACIENTE','ADMIN')">
-        <a href="/usuario/dashboard" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:href="#speedometer2" />
-          </svg>
-          Perfil
+      <li>
+        <a href="/autos/lista">
+          <i class="zmdi zmdi-widgets"></i> Autos
         </a>
       </li>
-      <li sec:Authorize="hasAnyRole('MEDICO','ADMIN')">
-        <a href="/profesional/dashboard" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:href="#speedometer2" />
-          </svg>
-          Perfil Profesional
+      <li>
+        <a href="/cotizaciones/lista">
+          <i class="zmdi zmdi-calendar"></i> Cotizaciones
         </a>
       </li>
-      <li sec:Authorize="hasAnyRole ('ADMIN')">
-        <a href="/registrarprofesional" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:href="#speedometer2" />
-          </svg>
-          Crear Medico
-        </a>
-      
-        <li sec:Authorize="hasAnyRole ('ADMIN','MEDICO')">
-        <a href="/turnos/profesional/registrar_turno/" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:href="#people-circle" />
-          </svg>
-          Crear Turnos
-        </a> 
-      </li>
-      </li>
-      <li sec:Authorize="hasAnyRole ('ADMIN')">
-        <a href="/admin/registrarUsuario" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:href="#speedometer2" />
-          </svg>
-          Crear Paciente
+      <li>
+        <a href="#">
+          <i class="zmdi zmdi-info-outline"></i> About
         </a>
       </li>
-      <li sec:Authorize="hasAnyRole ('ADMIN')">
-        <a href="/admin/listaUsuarios" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:href="#table" />
-          </svg>
-          Lista Usuarios
+      <li>
+        <a href="#">
+          <i class="zmdi zmdi-settings"></i> Servicios
         </a>
       </li>
-      <li sec:Authorize="hasAnyRole ('ADMIN')">
-        <a href="/admin/listaProfesionales" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:href="#grid" />
-          </svg>
-          Lista Profesionales
+      <li>
+        <a href="/logout">
+          <i class="zmdi zmdi-comment-more"></i> Cerrar Sesion
         </a>
       </li>
-      <li sec:Authorize="hasAnyRole ('PACIENTE','ADMIN')">
-        <a href="/#Profesionales" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:href="#grid" />
-          </svg>
-          Lista Profesionales
-        </a>
-      </li>
-      <li sec:Authorize="hasAnyRole ('MEDICO')">
-        <a href="/turnos/profesional/listar_turnos" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:href="#people-circle" />
-          </svg>
-          Turnos
-        </a>
-      </li>
-      <!-- <li>
-        <a href="#" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:href="#people-circle" />
-          </svg>
-          Modificar Horarios
-        </a>
-      </li> -->
-    
-      <li sec:Authorize="hasAnyRole ('ADMIN','PACIENTE')">
-
-        <a  onclick=confirmarRedireccion() href="/#Profesionales" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-          Pedir Turno
-        </a>
-      </li>
-      
-      <script>
-        function confirmarRedireccion() {
-            // Mostrar un cuadro de diálogo de confirmación
-            const confirmacion = confirm('Para sacar un turno, es necesario buscar a un profesional por especialidad. ¿Desea elegir una?');
-        
-            // Si el usuario hace clic en "Aceptar" en el cuadro de diálogo de confirmación
-            if (confirmacion) {
-                // Esperar 3 segundos y luego redirigir a la sección deseada
-                setTimeout(function() {
-                    window.location.href = "#Profesionales"; // Reemplaza "Profesionales" con el ID de la sección a la que deseas redirigir
-                }, 500); // 3000 milisegundos = 3 segundos
-            }
-        }
-        </script>
-
-
-      <!-- <li>
-        <a href="#" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16">
-            <use xlink:href="#people-circle" />
-          </svg>
-          Otra Opcion
-        </a>
-      </li> -->
     </ul>
-    <hr>
-
-  <!--  <div class="dropdown">
-      <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-
-        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-        <strong>mdo</strong>
-      </a>
-       <ul class="dropdown-menu text-small shadow">
-        <li><a class="dropdown-item" href="#">New project...</a></li>
-        <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="#">Profile</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">Sign out</a></li>
-      </ul> 
-    </div>-->
+    
   </div>
-</div>

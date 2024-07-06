@@ -39,7 +39,7 @@ public class ClienteControlador {
     @PostMapping("/sumbit")
     public String crearCliente(Cliente cliente) throws MiException {
         clienteService.saveCliente(cliente.getRut(), cliente.getNombre(), cliente.getApellido(), cliente.getTelefono(), cliente.getMail(), cliente.getNumeroVin());
-        return "redirect:/clientes";
+        return "redirect:/clientes/lista";
     }
     
     
