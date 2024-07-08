@@ -11,44 +11,61 @@
     
 
     <h1>Detalle del Cliente</h1>
-    <div>
-        <h2>Datos del Cliente</h2>
-        <p><strong>Nombre:</strong> <span th:text="${cliente.nombre}"></span></p>
-        <p><strong>Apellido:</strong> <span th:text="${cliente.apellido}"></span></p>
-        <p><strong>Teléfono:</strong> <span th:text="${cliente.telefono}"></span></p>
-        <p><strong>Email:</strong> <span th:text="${cliente.mail}"></span></p>
+    <h2>Datos del Cliente</h2>
+    <p>RUT: <span th:text="${cliente.rut}"></span></p>
+    <p>Nombre: <span th:text="${cliente.nombre}"></span></p>
+    <p>Apellido: <span th:text="${cliente.apellido}"></span></p>
+    <p>Teléfono: <span th:text="${cliente.telefono}"></span></p>
+    <p>Correo Electrónico: <span th:text="${cliente.mail}"></span></p>
+
+    <h2>Autos del Cliente</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Modelo</th>
+                <th>Marca</th>
+                <th>Patente</th>
+                <th>VIN</th>
+                <th>Kilometraje</th>
+                <th>Comentario</th>
+                <th>Fecha de Creación</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="auto : ${autos}">
+                <!-- <td th:text="${auto.modelo}"></td> -->
+                <td th:text="${auto.marca}"></td>
+                <td th:text="${auto.patente}"></td>
+                <td th:text="${auto.vin}"></td>
+                <td th:text="${auto.kilometraje}"></td>
+                <td th:text="${auto.comentario}"></td>
+                <td th:text="${auto.fechadeCreacion}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Cotizaciones del Cliente</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Monto</th>
+                <th>Descripción</th>
+                <th>Estado</th>
+                <th>Encargado</th>
+                <th>Forma de Pago</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="cotizacion : ${cotizaciones}">
+                <td th:text="${cotizacion.monto}"></td>
+                <td th:text="${cotizacion.descripcion}"></td>
+                <td th:text="${cotizacion.estado}"></td>
+                <td th:text="${cotizacion.encargado}"></td>
+                <td th:text="${cotizacion.formaPago}"></td>
+            </tr>
+        </tbody>
+    </table>
     </div>
-    <div>
-        <h2>Autos del Cliente</h2>
-        <div th:each="auto : ${cliente.autos}">
-            <p><strong>Marca:</strong> <span th:text="${auto.marca}"></span></p>
-            <p><strong>Modelo:</strong> <span th:text="${auto.modelo}"></span></p>
-            <p><strong>Número VIN:</strong> <span th:text="${auto.numeroVin}"></span></p>
-        </div>
-    </div>
-    <div>
-        <h2>Historial de Cotizaciones</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Descripción</th>
-                    <th>Monto</th>
-                    <th>Estado</th>
-                    <th>Fecha</th>
-                    <th>Encargado</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="cotizacion : ${cliente.cotizaciones}">
-                    <td th:text="${cotizacion.descripcion}"></td>
-                    <td th:text="${cotizacion.costo}"></td>
-                    <td th:text="${cotizacion.estado}"></td>
-                    <td th:text="${cotizacion.fecha}"></td>
-                    <td th:text="${cotizacion.encargado}"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <a href="/clientes-cotizaciones/lista">Volver a la lista</a>
+    <a href="/dashboard/panel">Volver a la lista</a>
 </body>
 </html>

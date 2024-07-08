@@ -140,7 +140,10 @@ public class AutoService {
     public List<Auto> obtenerTodosLosAutos() {
         return autorepo.findAll();
     }
-
+    
+//     public List<Auto> obtenerAutosPorClienteId(Long idCliente) {
+//        return autorepo.findbyidCliente(idCliente);
+//     }
     public Optional<Auto> obtenerAutoPorId(Long id) {
         return autorepo.findById(id);
     }

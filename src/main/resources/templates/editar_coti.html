@@ -1,38 +1,109 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="EDITRA"></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App EurtoSport Chile</title>
+    <link rel="stylesheet" href="/dashboard.css">
+    <link rel="stylesheet" href="/tablaclientes.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
 </head>
 <body>
-    <!-- <h1 th:text="${cotizacion.idCotizacion == null} ? 'Registrar Nueva Cotización' : 'Editar Cotización'"></h1> -->
-    <form th:action="@{${cotizacion.idCotizacion == null} ? '/cotizaciones/guardar' : '/cotizaciones/actualizar/{id}(id=${cotizacion.idCotizacion})'}" th:object="${cotizacion}" method="post">
+    
+<main>
+  <div id="viewport">
+  <!-- Sidebar -->
+  <div th:replace="fragments/sidebar :: sidebar"></div>
+  
+  
+
+  <!-- CONTENIDO DASHBOARD -->
+  <div id="content">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="#"><i class="zmdi zmdi-notifications text-danger"></i>
+            </a>
+          </li>
+          <li><a href="/dashboard/panel">Inicio</a></li>
+
+        </ul>
+      </div>
+    </nav>
+    <div class="container-fluid">
+
+      
+      <h1>EDITAR COTIZACION</h1>
+      <p>
+       Ingresa los Datos del Cliente
+        <code>---</code>.
+
+        <a href="/clientes/nuevo"><button type="button" class="btn btn-primary btn-lg">Nueva Cotizacion</button></a>
+    
+
+         <!-- Container -->
+<div class="container">
+
+  <!-- Main Content-->
+  <div class="masthead">
+    
+
+    
+<!-- Contenido Tabla -->
+
+    
+    
+        <h1>Datos</h1>
+
+    
+        <form th:action="@{/cotizaciones/editar/__${cotizacion.idCotizacion}__}"  th:object="${cotizacion}" method="post">
+        <input type="hidden" th:field="*{idCotizacion}" th:value="${cotizacion.idCotizacion}"/>
+       
         <label for="cliente">Cliente:</label>
-        <select id="cliente" th:field="*{cliente.idCliente}" required>
-            <option th:each="cliente : ${clientes}" th:value="${cliente.idCliente}" th:text="${cliente.nombre} + ' ' + ${cliente.apellido}"></option>
-        </select><br/>
-
-        <!-- <label for="auto">Auto:</label>
-        <select id="auto" th:field="*{auto.id}" required>
-            <option th:each="auto : ${autos}" th:value="${auto.id}" th:text="${auto.marca} + ' ' + ${auto.modelo}"></option>
-        </select><br/> -->
-
-        <label for="estado">Estado:</label>
-        <select id="estado" th:field="*{estado}" required>
-            <option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}"></option>
-        </select><br/>
-
-        <label for="encargado">Encargado:</label>
-        <select id="encargado" th:field="*{encargado}" required>
-            <option th:each="encargado : ${encargados}" th:value="${encargado}" th:text="${encargado}"></option>
-        </select><br/>
-
-        <label for="descripcion">Descripción:</label>
-        <textarea id="descripcion" th:field="*{descripcion}" required></textarea><br/>
+        <select id="cliente" th:field="*{cliente.idCliente}">
+            <option th:each="cliente : ${clientes}" th:value="${cliente.idCliente}" th:text="${cliente.nombre + ' ' + cliente.apellido}"></option>
+        </select>
 
         <label for="monto">Monto:</label>
-        <input type="number" id="monto" th:field="*{monto}" required/><br/>
+        <input type="number" id="monto" th:field="*{monto}" th:value="${cotizacion.monto}" required/><br>
 
-        <button type="submit" th:text="${cotizacion.idCotizacion == null} ? 'Registrar' : 'Actualizar'"></button>
+        <label for="descripcion">Descripción:</label>
+        <input type="text" id="descripcion" th:field="*{descripcion}" th:value="${cotizacion.descripcion}" required/><br>
+
+        <label for="estado">Estado:</label>
+        <select id="estado" th:field="*{estado}">
+            <option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}"></option>
+        </select><br>
+
+        <label for="encargado">Encargado:</label>
+        <select id="encargado" th:field="*{encargado}">
+            <option th:each="encargado : ${encargados}" th:value="${encargado}" th:text="${encargado}"></option>
+        </select><br>
+
+        <label for="formaPago">Forma de Pago:</label>
+        <input type="text" id="formaPago" th:field="*{formaPago}" th:value="${cotizacion.formaPago}" required/><br>
+
+        <button type="submit">Actualizar Cotización</button>
     </form>
+        
+    
+    </div>
+  </div>
+</div>
+  </p>
+    </div>
+  </div>
+
+
+</main>
+<footer>
+  <p> Cuyo Devs Derechos Reservados 2024</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/Tablaclientes.js"></script>
+<script src="/js/3forms.js"></script>
 </body>
 </html>

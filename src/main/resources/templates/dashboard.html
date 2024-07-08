@@ -3,23 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App EurtoSport Chile</title>
+    <title>App EuroSport Chile</title>
     <link rel="stylesheet" href="/dashboard.css">
     <link rel="stylesheet" href="/tablaclientes.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-
 </head>
 <body>
     
-<main>
-  <div id="viewport">
-  <!-- Sidebar -->
-  <div th:replace="fragments/sidebar :: sidebar"></div>
-  <!-- <div th:replace="fragments/form_completo :: formu_completo"></div>
-   ARREGLAR EL FORMULARIO PARA LOS 3 MOMENTOS DE REGISTRO -->
-  
 
+  <main>
+  <div th:replace="fragments/sidebar :: sidebar"></div>
+  <!-- Sidebar -->
+  
+  
+  
+  <div id="viewport">
   <!-- CONTENIDO DASHBOARD -->
   <div id="content">
     <nav class="navbar navbar-default">
@@ -35,35 +34,28 @@
       </div>
     </nav>
     <div class="container-fluid">
-
       
-      <h1>Ultimos Clientes</h1>
+      
+      <h1>Últimos Clientes.-</h1>
       <p>
-       Ingresa los Datos del Cliente
-        <code>---</code>.
-
-        <a href="/cotizaciones/nueva"><button type="button" class="btn btn-primary btn-lg">Nueva Cotizacion</button></a>
-       <a href="/clientes/nuevo"><button type="button" class="btn btn-secondary btn-lg">Nuevo Cliente</button></a>
-
-
         <!-- TABLA DE ULTIMOS CLIENTES  -->
-         <!-- Container -->
-<div class="container">
-
-  <!-- Main Content-->
-  <div class="masthead">
-    
-<input type="text" id="buscar" onkeyup="buscar()" placeholder="Ingresa Numero Vin" title="Empieza a escribir para buscar">
-    
-<!-- Contenido Tabla -->
-
-    <div class="table-responsive">
-      <table class="table" id="tabla" data-sort="table">
-        <h1>Lista de ultimos clientes</h1>
-      
-        
+        <!-- Container -->
+        <a href="/clientes/nuevo"><button type="button" class="btn btn-primary btn-lg">Nueva Cotizacion <img width="20px" src="/img/plus.ico" alt="plusico"></button></a>
+        <div class="container">
+          
+          <!-- Main Content-->
+          <div class="masthead">
             
-                <tr>
+            <input type="text" id="buscar" onkeyup="buscar()" placeholder="Buscar..." title="Empieza a escribir para buscar">
+            
+            <!-- Contenido Tabla -->
+            <div class="table-responsive">
+              <table class="table" id="tabla" data-sort="table">
+                <h1>Lista:</h1>
+                
+                <thead>
+                  
+                  <tr>
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Teléfono</th>
@@ -72,11 +64,11 @@
                     <th>Monto ($)</th>
                     <th>Estado </th>
                     <th>N° VIN</th>
-                    <th>Acciones</th>
-                </tr>
-            
-            
-                <tr th:each="cliente : ${clientes}">
+                    <!-- <th>Acciones</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="cliente : ${clientes}">
                     <td th:text="${cliente.nombre}"></td>
                     <td th:text="${cliente.apellido}"></td>
                     <td th:text="${cliente.telefono}"></td>
@@ -86,16 +78,16 @@
                     <td th:each="cotizacion : ${cliente.listaCotizacion}" th:text="${cotizacion.estado}"></td>
                     <td th:each="auto : ${cliente.listaAuto}" th:text="${auto.vin}"></td>
                     <td>
-                        <a th:href="@{/clientes-cotizaciones/detalle/{id}(id=${cliente.idCliente})}">Ver más</a>
+                      <!-- <a th:href="@{/dashboard/detalle/__${cliente.idCliente}__}">Ver más</a> -->
                     </td>
-                </tr>
-            
-        
-      </table>
-    </div>
-  </div>
-</div>
-  </p>
+                  </tr>
+                </tbody>
+                
+              </table>
+            </div>
+          </div>
+        </div>
+      </p>
     </div>
   </div>
 </div>
@@ -107,5 +99,6 @@
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/Tablaclientes.js"></script>
+<script src="/js/3forms.js"></script>
 </body>
 </html>

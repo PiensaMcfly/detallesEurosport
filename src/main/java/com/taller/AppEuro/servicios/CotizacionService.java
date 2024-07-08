@@ -142,4 +142,8 @@ public class CotizacionService {
         cotizacionrepo.deleteById(id);
     }    
     
+//       public List<Cotizacion> obtenerCotizacionesPorClienteId(Long idCliente) {
+//        return cotizacionrepo.findbyidCliente(idCliente);
+//    }
+    
 }

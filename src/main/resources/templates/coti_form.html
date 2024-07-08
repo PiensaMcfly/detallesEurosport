@@ -44,8 +44,9 @@
           <select id="cliente" th:field="*{cliente.idCliente}">
               <option th:each="cliente : ${clientes}" th:value="${cliente.idCliente}" th:text="${cliente.nombre + ' ' + cliente.apellido}"></option>
           </select>
+          <code>IMPORTANTE Asociar Cliente</code>
   
-          <label for="monto">Monto:</label>
+          <label for="monto">Monto ($):</label>
           <input type="number" id="monto" th:field="*{monto}" required><br>
           
           <label for="descripcion">Descripción:</label>

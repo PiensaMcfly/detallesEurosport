@@ -12,19 +12,15 @@ import com.taller.AppEuro.exepciones.MiException;
 import com.taller.AppEuro.repository.ICotizacionRepository;
 import com.taller.AppEuro.servicios.ClienteService;
 import com.taller.AppEuro.servicios.CotizacionService;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -55,13 +51,18 @@ public class CotizacionControlador {
      @PostMapping("/save")
     public String saveCotizacion(@ModelAttribute("cotizacion") Cotizacion cotizacion) {
         cotirepo.save(cotizacion);
-        return "redirect:/cotizaciones/nueva";
+        return "redirect:/dashboard/panel";
     
     }
     
-
+      @PostMapping("/save1")
+    public String saveCotizacion1(@ModelAttribute("cotizacion") Cotizacion cotizacion) {
+        cotirepo.save(cotizacion);
+        return "redirect:/cotizaciones/lista";
     
-    //----------------------------------Controladores 2 -------------------------------------------
+    }
+    
+  
     
   @GetMapping("/lista")
     public String listarCotizaciones(Model model) {
@@ -73,20 +74,33 @@ public class CotizacionControlador {
     @GetMapping("/editar/{id}")
     public String editarCotizacion(@PathVariable Long id, Model model) {
         Optional<Cotizacion> cotizacion = cotizacionService.obtenerCotizacionPorId(id);
-        model.addAttribute("cotizacion", cotizacion);
+   
+        model.addAttribute("cotizacion", cotizacion.get());
         model.addAttribute("estados", EstadoCotizacion.values());
         model.addAttribute("encargados", Encargado.values());
         return "editar_coti.html";
     }
 
-    @PostMapping("/actualizar")
-    public String actualizarCotizacion(@ModelAttribute Cotizacion cotizacion) {
-        return "redirect:/cotizaciones";
+    @PostMapping("/editar/{id}")
+    public String updateCotizacion(@RequestParam("idCotizacion") Long idCotizacion,
+                                   @RequestParam("monto") Long monto,
+                                   @RequestParam("descripcion") String descripcion,
+                                   @RequestParam("estado") EstadoCotizacion estado,
+                                   @RequestParam("encargado") Encargado encargado,
+                                   @RequestParam("formaPago") String formaPago,
+                                   Model model) {
+        try {
+            cotizacionService.actualizarCotizacion(idCotizacion, monto, descripcion, estado, encargado, formaPago);
+            return "redirect:/cotizaciones/lista";
+        } catch (MiException e) {
+            model.addAttribute("error", e.getMessage());
+            return "editCotizacion";
+        }
     }
 
     @GetMapping("/eliminar/{id}")
     public String eliminarCotizacion(@PathVariable Long id) {
         cotizacionService.deleteCotizacion(id);
-        return "redirect:/cotizaciones";
+        return "redirect:/cotizaciones/lista";
     }
 }

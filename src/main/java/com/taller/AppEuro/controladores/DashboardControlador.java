@@ -15,10 +15,12 @@ import com.taller.AppEuro.servicios.AutoService;
 import com.taller.AppEuro.servicios.ClienteService;
 import com.taller.AppEuro.servicios.CotizacionService;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -54,13 +56,25 @@ public class DashboardControlador {
          model.addAttribute("clientes", clientes);
          model.addAttribute("estados",EstadoCotizacion.values());
          model.addAttribute("encargados", Encargado.values());
-         model.addAttribute("cliente", new Cliente());
-         model.addAttribute("cotizacion", new Cotizacion());
-          model.addAttribute("auto", new Auto());
+//         model.addAttribute("cliente", new Cliente());
+//         model.addAttribute("cotizacion", new Cotizacion());
+//          model.addAttribute("auto", new Auto());
         
     return "dashboard.html";}
     
-    
-    
+   
+    @GetMapping("/detalle/{id}")
+  public String detallesCliente(@PathVariable Long id, Model model) {
+        Optional<Cliente> cliente = clienteService.obtenerClientePorId(id);
+        Optional<Auto> autos = autoService.obtenerAutoPorId(id);
+       Optional<Cotizacion> cotizaciones = cotizacionService.obtenerCotizacionPorId(id);
+
+        model.addAttribute("cliente", cliente.get());
+        model.addAttribute("autos", autos);
+        model.addAttribute("cotizaciones", cotizaciones);
+
+        return "detalle_cliente.html";
+    }
+  
     
 }

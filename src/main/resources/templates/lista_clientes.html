@@ -57,7 +57,7 @@
     <div class="table-responsive">
       <table class="table" id="tabla" data-sort="table">
         <h1>Lista de Clientes</h1>
-
+<thead>
             <tr>
                 <th>ID</th>
                 <th>RUT</th>
@@ -68,6 +68,8 @@
                 <th>VIN</th>
                 <th>Acciones</th>
             </tr>
+     </thead>
+          <tbody>
             <tr th:each="cliente : ${clientes}">
                 <td th:text="${cliente.idCliente}"></td>
                 <td th:text="${cliente.rut}"></td>
@@ -81,7 +83,7 @@
                     <a th:href="@{/clientes/eliminar/{id}(id=${cliente.idCliente})}">Eliminar</a>
                 </td>
             </tr>
-        
+        </tbody>
       </table>
     </div>
   </div>

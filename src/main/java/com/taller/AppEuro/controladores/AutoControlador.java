@@ -46,7 +46,6 @@ public class AutoControlador {
     }
 
     
-    //SEGUNDOS CONTROLERSSS------------con Thymeleaf----------------------------------
     
       @GetMapping("/nuevo")
     public String mostrarFormularioDeCreacion(Model model) {
@@ -61,7 +60,7 @@ public class AutoControlador {
      @PostMapping("/save")
     public String saveAuto(@ModelAttribute("auto") Auto auto) {
         autorepo.save(auto);
-        return "redirect:/autos/nuevo";
+        return "redirect:/cotizaciones/nueva";
     
     }
     //----------------------------------------------------
@@ -97,15 +96,15 @@ public class AutoControlador {
         }
     }
 
-    @PostMapping("/actualizar/{id}")
+    @PostMapping("/editar/{id}")
     public String actualizarAuto(@PathVariable Long id, @ModelAttribute Auto autoActualizado) throws MiException {
         autoService.actualizarAuto(id, autoActualizado.getModelo(), autoActualizado.getMarca(), autoActualizado.getPatente(), autoActualizado.getVin(), autoActualizado.getKilometraje(), autoActualizado.getComentario(), autoActualizado.getFechadeCreacion());
-        return "redirect:/autos";
+        return "redirect:/autos/lista";
     }
 
-    @PostMapping("/{id}/eliminar")
+    @GetMapping("/eliminar/{id}")
     public String eliminarAuto(@PathVariable Long id) {
         autoService.deleteAuto(id);
-        return "redirect:/autos";
+        return "redirect:/autos/lista";
     }
 }

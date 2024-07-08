@@ -63,7 +63,7 @@
             <tr>
                 <th>Marca</th>
                 <th>Modelo</th>
-                <th>Comentario</th>
+                <th>Comentario/Servicio</th>
                 <th>Cliente</th>
                 <th>Acciones</th>
             </tr>
@@ -75,8 +75,8 @@
                 <td th:text="${auto.comentario}"></td>
                 <td th:text="${auto.cliente.nombre} + ' ' + ${auto.cliente.apellido}"></td>
                 <td>
-                    <a th:href="@{/autos/editar/{id}(id=${auto.idAuto})}">Editar</a>
-                    <a th:href="@{/autos/eliminar/{id}(id=${auto.idAuto})}">Eliminar</a>
+                    <a th:href="@{/autos/editar/{id}(id=${auto.idAuto})}">Editar <img width="20px" src="/img/config.ico" alt="ico"></a>
+                    <a th:href="@{/autos/eliminar/{id}(id=${auto.idAuto})}">Eliminar <img width="20px" src="/img/cancel.ico" alt="ico"></a>
                 </td>
             </tr>
         </tbody>

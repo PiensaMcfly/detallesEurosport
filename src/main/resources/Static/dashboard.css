@@ -57,7 +57,7 @@ body {
 }
 
 #sidebar .nav{
-  
+  border-radius: 1px;
 }
 
 #sidebar .nav a{
@@ -76,3 +76,4 @@ body {
 #sidebar .nav a i{
   margin-right: 16px;
 }
+

@@ -35,11 +35,11 @@
     </nav>
     <div class="container-fluid">
 
-      
-      <h1>Ultimos Clientes</h1>
+      <code>
+      <h1>Cotizaciones</h1>
       <p>
        Ingresa los Datos del Auto o Cliente
-        <code>---</code>.
+        ---</code>.
 
         <button type="button" class="btn btn-primary btn-lg">Nueva Cotizacion</button>
         <button type="button" class="btn btn-secondary btn-lg">Nuevo Cliente</button>
@@ -63,7 +63,8 @@
       <tr>
             <th>ID</th>
             <th>Cliente</th>
-            <!-- <th>Auto</th> -->
+            <th>Monto ($)</th> 
+            <th>Descripción</th> 
             <th>Estado</th>
             <th>Encargado</th>
             <th>Acciones</th>
@@ -71,8 +72,8 @@
         <tr th:each="cotizacion : ${cotizaciones}">
             <td th:text="${cotizacion.idCotizacion}"></td>
             <td th:text="${cotizacion.cliente.nombre}"></td>
-            <!-- <td th:text="${cotizacion.auto.marca}"></td> -->
-             <!-- ver si puedo relacionar una cotizacion con el AUTO y cliente -->
+           <td th:text="${cotizacion.monto}"></td>
+           <td th:text="${cotizacion.descripcion}"></td>
             <td th:text="${cotizacion.estado}"></td>
             <td th:text="${cotizacion.encargado}"></td>
             <td>

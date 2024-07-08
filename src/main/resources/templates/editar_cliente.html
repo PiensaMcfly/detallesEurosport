@@ -1,11 +1,66 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Formulario de Cliente</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App EurtoSport Chile</title>
+    <link rel="stylesheet" href="/dashboard.css">
+    <link rel="stylesheet" href="/tablaclientes.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
 </head>
 <body>
-    <h1 th:text="${cliente.idCliente == null} ? 'Registrar Nuevo Cliente' : 'Editar Cliente'"></h1>
-    <form th:action="@{/clientes/actualizar/{id}__${cliente.idCliente}__}" th:object="${cliente}" method="post">
+    
+<main>
+  <div id="viewport">
+  <!-- Sidebar -->
+  <div th:replace="fragments/sidebar :: sidebar"></div>
+  
+  
+
+  <!-- CONTENIDO DASHBOARD -->
+  <div id="content">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="#"><i class="zmdi zmdi-notifications text-danger"></i>
+            </a>
+          </li>
+          <li><a href="/dashboard/panel">Inicio</a></li>
+
+        </ul>
+      </div>
+    </nav>
+    <div class="container-fluid">
+
+      
+      <h1>Modificar Cliente</h1>
+      <p>
+       Ingresa los Datos del Cliente a modificar
+        <code>---</code>.
+
+        <a href="/clientes/nuevo"><button type="button" class="btn btn-primary btn-lg">Nueva Cotizacion</button></a>
+    
+
+         <!-- Container -->
+<div class="container">
+
+  <!-- Main Content-->
+  <div class="masthead">
+    
+
+    
+<!-- Contenido Tabla -->
+
+    
+    
+    <h2 th:text="${cliente.idCliente == null} ? 'Registrar Nuevo Cliente' : ' Cliente'"></h2>
+    <form th:action="@{/clientes/editar/__${cliente.idCliente}__}" th:object="${cliente}" method="post">
+
+        <input type="text" hidden th.value=${id} name="id">
+
         <label for="rut">RUT:</label>
         <input type="text" id="rut" th:field="*{rut}" required/><br/>
 
@@ -26,5 +81,22 @@
 
         <button type="submit" th:text="${cliente.idCliente == null} ? 'Registrar' : 'Actualizar'"></button>
     </form>
+        
+    
+    </div>
+  </div>
+</div>
+  </p>
+    </div>
+  </div>
+
+
+</main>
+<footer>
+  <p> Cuyo Devs Derechos Reservados 2024</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/Tablaclientes.js"></script>
+<script src="/js/3forms.js"></script>
 </body>
 </html>

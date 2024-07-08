@@ -125,7 +125,7 @@ public class ClienteService {
     
     //------------------------------------------------------------------///
     
-  //SEGGUNDA OPCION de Crear 
+ 
     @Transactional
     public void saveCliente(String rut, String nombre, String apellido, String telefono, String mail, String numeroVin) throws MiException {
         // Validaciones
@@ -169,8 +169,8 @@ public class ClienteService {
                     cliente.setTelefono(clienteActualizado.getTelefono());
                     cliente.setMail(clienteActualizado.getMail());
                     cliente.setNumeroVin(clienteActualizado.getNumeroVin());
-                    cliente.setListaAuto(clienteActualizado.getListaAuto());
-                    cliente.setListaCotizacion(clienteActualizado.getListaCotizacion());
+                   // cliente.setListaAuto(clienteActualizado.getListaAuto());
+                   // cliente.setListaCotizacion(clienteActualizado.getListaCotizacion());
                     return clienterepo.save(cliente);
                 })
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));

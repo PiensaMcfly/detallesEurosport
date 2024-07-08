@@ -5,6 +5,7 @@
 package com.taller.AppEuro.repository;
 
 import com.taller.AppEuro.entities.Auto;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,5 +22,6 @@ public interface IAutoRepository extends JpaRepository<Auto, Long> {
      @Query("SELECT a FROM Auto a WHERE a.modelo = :idAuto")
     public Long buscarCliente(@Param("idAuto") Long idAuto);
     
+//    List<Auto>findbyidCliente(Long idCliente);
     
 }

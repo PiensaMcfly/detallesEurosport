@@ -10,18 +10,14 @@ import com.taller.AppEuro.servicios.ClienteService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequestMapping("/clientes")
@@ -39,11 +35,10 @@ public class ClienteControlador {
     @PostMapping("/sumbit")
     public String crearCliente(Cliente cliente) throws MiException {
         clienteService.saveCliente(cliente.getRut(), cliente.getNombre(), cliente.getApellido(), cliente.getTelefono(), cliente.getMail(), cliente.getNumeroVin());
-        return "redirect:/clientes/lista";
+        return "redirect:/autos/nuevo";
     }
     
-    
-    //--------------------------------------------------------
+  
     
    @GetMapping ("/lista")
     public String obtenerTodosLosClientes(Model model) {
@@ -51,7 +46,7 @@ public class ClienteControlador {
         model.addAttribute("clientes", clientes);
         return "lista_clientes.html";
     }
-   //--------------------------------------------------------
+  
 
     @GetMapping("/editar/{id}")
     public String mostrarFormularioDeEditarCliente(@PathVariable Long id, Model model) throws MiException {
@@ -64,7 +59,7 @@ public class ClienteControlador {
         }
     }
 
-    @PostMapping("/actualizar/{id}")
+    @PostMapping("/editar/{id}")
     public String actualizarCliente(@PathVariable Long id, @ModelAttribute Cliente clienteActualizado) throws MiException {
         clienteService.updateCliente(id, clienteActualizado);
         return "redirect:/clientes/lista";
