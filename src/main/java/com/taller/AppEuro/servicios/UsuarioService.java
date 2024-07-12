@@ -17,6 +17,7 @@ import java.util.Optional;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class UsuarioService  implements UserDetailsService {
 
@@ -24,19 +25,20 @@ public class UsuarioService  implements UserDetailsService {
    private IUsuarioRepository usuariorepo;
 
 
-//    @Override
-//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-//    Usuario usuario = usuariorepo.findById(email);
-//        if(usuario != null){
-//            
-//             List<GrantedAuthority> permisos = new ArrayList();
-//            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_"+ usuario.get().;
-//            permisos.add(p);
-//            
-//            User user = new User(usuario.get().getEmail(email);
-//        }
-//    
-//    }
+    @Override
+   public UserDetails loadUserByUsername(String nombreUsuario) throws UsernameNotFoundException {
+        Usuario usuario = usuariorepo.buscarPorusuario(nombreUsuario);
+        if (usuario != null) {
+
+            List<GrantedAuthority> permisos = new ArrayList();
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
+            permisos.add(p);
+
+            return new User(usuario.getNombreUsuario(), usuario.getPassword(), permisos);
+        }else{
+        return null;}
+
+    }
 
 
     @Transactional
@@ -45,10 +47,9 @@ public class UsuarioService  implements UserDetailsService {
         // validar(nombreUsuario, nombreUsuario,password, password2, email);
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(nombreUsuario);
-        usuario.setPassword(password);
+         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setEmail(email);
         usuario.setRol(Rol.ADMIN);
-        //  usuario.setPassword(new BCryptPasswordEncoder().encode(password));
 
 
         usuariorepo.save(usuario);
@@ -77,13 +78,5 @@ public class UsuarioService  implements UserDetailsService {
         public void eliminarUsuario(String idUsuario) {
             usuariorepo.deleteById(idUsuario);
         }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-
-
 
 }
