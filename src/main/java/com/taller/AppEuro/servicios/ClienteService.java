@@ -53,7 +53,7 @@ public class ClienteService {
 
     }
      
-//    Al este metodo  Modificar de modificar puedo agregarle validaciones, estar atento para agregar 
+//    Al este metodo Modificar de modificar puedo agregarle validaciones, estar atento para agregar
     
     public void modificarCliente(Long idCliente, String Rut, String nombre, String apellido, String telefono, String mail, String numeroVin, Long idAuto, Long idCotizacion) {
         Optional<Auto> respuestaAuto = autorepo.findById(idAuto);
@@ -85,10 +85,6 @@ public class ClienteService {
 
     }
 
-    public List<Cliente> listarClientes() {
-        List<Cliente> listaClientes = clienterepo.findAll();
-        return listaClientes;
-    }
 
     @Transactional
     public void EliminarCliente() {
@@ -99,28 +95,6 @@ public class ClienteService {
         clienterepo.getOne(Long.MIN_VALUE).getIdCliente();
     }
     
-    private void validaciones(String rut, String nombre, String apellido, String telefono, String mail, String numeroVin) throws MiException{
-        
-         if (rut.isEmpty() || rut == null) {
-            throw new MiException("El numero RUT no puede estar Vacio o Nulo");
-        }
-
-        if (nombre.isEmpty() || nombre == null) {
-            throw new MiException("El Nombre del Cliente no puede estar Vacio o Nulo");
-        }
-
-        if (apellido.isEmpty() || apellido == null) {
-            throw new MiException("El Apellido del Cliente no puede estar Vacio o Nulo");
-        }
-        if (telefono.isEmpty() || telefono == null) {
-            throw new MiException("El numero de telefono no puede estar Vacio o Nulo");
-        }
-
-        if (mail.isEmpty() || mail == null) {
-            throw new MiException("El email  no puede estar Vacio o Nulo");
-        }
-        
-    }
 
     
     //------------------------------------------------------------------///
@@ -148,9 +122,6 @@ public class ClienteService {
         clienterepo.save(cliente);
     }
     
-    public Cliente Save(Cliente cliente) {
-        return clienterepo.save(cliente);
-    }
 
     public List<Cliente> obtenerTodosLosClientes() {
         return clienterepo.findAll();
@@ -183,9 +154,31 @@ public class ClienteService {
     public Cliente actualizarCliente(Long id, Cliente clienteActualizado) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    
-    
+
+    private void validaciones(String rut, String nombre, String apellido, String telefono, String mail, String numeroVin) throws MiException{
+
+        if (rut.isEmpty() || rut == null) {
+            throw new MiException("El numero RUT no puede estar Vacio o Nulo");
+        }
+
+        if (nombre.isEmpty() || nombre == null) {
+            throw new MiException("El Nombre del Cliente no puede estar Vacio o Nulo");
+        }
+
+        if (apellido.isEmpty() || apellido == null) {
+            throw new MiException("El Apellido del Cliente no puede estar Vacio o Nulo");
+        }
+        if (telefono.isEmpty() || telefono == null) {
+            throw new MiException("El numero de telefono no puede estar Vacio o Nulo");
+        }
+
+        if (mail.isEmpty() || mail == null) {
+            throw new MiException("El email  no puede estar Vacio o Nulo");
+        }
+
+    }
+
+
 }
 
 

@@ -3,22 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cliente-detalle</title>
+    <title>App EuroSport Chile</title>
+    <link rel="stylesheet" href="/dashboard.css">
+    <link rel="stylesheet" href="/tablaclientes.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 </head>
 <body>
-
     <div th:replace="fragments/sidebar :: sidebar"></div>
-    
 
-    <h1>Detalle del Cliente</h1>
-    <h2>Datos del Cliente</h2>
-    <p>RUT: <span th:text="${cliente.rut}"></span></p>
-    <p>Nombre: <span th:text="${cliente.nombre}"></span></p>
-    <p>Apellido: <span th:text="${cliente.apellido}"></span></p>
-    <p>Teléfono: <span th:text="${cliente.telefono}"></span></p>
-    <p>Correo Electrónico: <span th:text="${cliente.mail}"></span></p>
+
+    <div id="viewport">
+        <!-- CONTENIDO DASHBOARD -->
+        <div id="content">
+          <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <ul class="nav navbar-nav navbar-right">
+                <li>
+                  <a href="#"><i class="zmdi zmdi-notifications text-danger"></i>
+                  </a>
+                </li>
+                <li><a href="/dashboard/panel">Inicio</a></li>
+      
+              </ul>
+            </div>
+          </nav>
+          <div class="container-fluid">
+            
+            <p>
+              <!-- Container -->
+              <!-- <a href=""><button type="button" class="btn btn-primary btn-lg">Nueva Cotizacion <img width="20px" src="/img/plus.ico" alt="plusico"></button></a> -->
+              <div class="container">
+                
+                <!-- Main Content-->
+                <div class="masthead">
+                  
+                  <!-- Contenido Tabla -->
+                  
+              <h1>Detalles del Cliente</h1>
+    
+    <h2>Información del Cliente</h2>
+    <p><strong>RUT:</strong> <span th:text="${cliente.rut}"></span></p>
+    <p><strong>Nombre:</strong> <span th:text="${cliente.nombre}"></span></p>
+    <p><strong>Apellido:</strong> <span th:text="${cliente.apellido}"></span></p>
+    <p><strong>Teléfono:</strong> <span th:text="${cliente.telefono}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${cliente.mail}"></span></p>
+    <p><strong>Número VIN:</strong> <span th:text="${cliente.numeroVin}"></span></p>
 
     <h2>Autos del Cliente</h2>
+    <div class="table-responsive">
     <table>
         <thead>
             <tr>
@@ -33,13 +66,13 @@
         </thead>
         <tbody>
             <tr th:each="auto : ${autos}">
-                <!-- <td th:text="${auto.modelo}"></td> -->
+                <td th:text="${auto.modelo}"></td>
                 <td th:text="${auto.marca}"></td>
                 <td th:text="${auto.patente}"></td>
                 <td th:text="${auto.vin}"></td>
                 <td th:text="${auto.kilometraje}"></td>
                 <td th:text="${auto.comentario}"></td>
-                <td th:text="${auto.fechadeCreacion}"></td>
+                <td th:text="${#dates.format(auto.fechadeCreacion, 'yyyy-MM-dd')}"></td>
             </tr>
         </tbody>
     </table>
@@ -65,7 +98,19 @@
             </tr>
         </tbody>
     </table>
-    </div>
-    <a href="/dashboard/panel">Volver a la lista</a>
+
+    <a th:href="@{/clientes/lista}">Volver a la lista de clientes</a>
+                  </div>
+                </div>
+              </div>
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      
+
+
+    
 </body>
 </html>

@@ -17,7 +17,8 @@ public class HomeControlador {
     return "index.hmtl";
     }
     
-    @GetMapping("/login")
+    @GetMapping("/v1/login")
     public String login(){
     return "Login.html";}
+
 }

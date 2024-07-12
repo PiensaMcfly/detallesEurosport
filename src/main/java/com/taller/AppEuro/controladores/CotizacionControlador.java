@@ -50,7 +50,7 @@ public class CotizacionControlador {
     
      @PostMapping("/save")
     public String saveCotizacion(@ModelAttribute("cotizacion") Cotizacion cotizacion) {
-        cotirepo.save(cotizacion);
+      cotirepo.save(cotizacion);
         return "redirect:/dashboard/panel";
     
     }
@@ -66,7 +66,7 @@ public class CotizacionControlador {
     
   @GetMapping("/lista")
     public String listarCotizaciones(Model model) {
-        List<Cotizacion>cotizaciones = cotizacionService.listarCotizaciones();
+        List<Cotizacion>cotizaciones = cotizacionService.obtenerTodasLasCotizaciones();
         model.addAttribute("cotizaciones", cotizaciones);
         return "lista_coti.html";
     }

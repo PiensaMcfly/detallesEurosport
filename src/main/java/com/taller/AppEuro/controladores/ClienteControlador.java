@@ -70,6 +70,22 @@ public class ClienteControlador {
         clienteService.deleteCliente(id);
         return "redirect:/clientes/lista";
     }
+
+
+    @GetMapping("/detalle/{id}")
+    public String mostrarDetalleCliente(@PathVariable Long id, Model model) throws MiException {
+        Optional<Cliente> clienteOpt = clienteService.obtenerClientePorId(id);
+        if (clienteOpt.isPresent()) {
+            Cliente cliente = clienteOpt.get();
+            model.addAttribute("cliente", cliente);
+            model.addAttribute("autos", cliente.getListaAuto());
+            model.addAttribute("cotizaciones", cliente.getListaCotizacion());
+            return "detalle_cliente.html";
+        } else {
+            throw new MiException("Cliente no encontrado");
+        }
+    }
+
 }
     
    

@@ -43,13 +43,12 @@ public class DashboardControlador {
     @Autowired 
     private IAutoRepository autorepo;
     
-    
-    
-    
+
+
     @GetMapping("/panel")
     public String Dash(Model model){
-         List<Cotizacion>cotizaciones = cotizacionService.listarCotizaciones();
-         List<Auto> autos = autoService.listarAutos();
+         List<Cotizacion>cotizaciones = cotizacionService.obtenerTodasLasCotizaciones();
+         List<Auto> autos = autoService.obtenerTodosLosAutos();
          List <Cliente> clientes = clienteService.obtenerTodosLosClientes();
          model.addAttribute("cotizaciones", cotizaciones);
          model.addAttribute("autos",autos);

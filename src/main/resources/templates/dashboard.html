@@ -75,10 +75,10 @@
                     <td th:text="${cliente.mail}"></td>
                     <td th:each="cotizacion : ${cliente.listaCotizacion}" th:text="${cotizacion.descripcion}"></td>
                     <td th:each="cotizacion : ${cliente.listaCotizacion}" th:text="${cotizacion.monto}"></td>
-                    <td th:each="cotizacion : ${cliente.listaCotizacion}" th:text="${cotizacion.estado}"></td>
+                    <!-- <td th:each="cotizacion : ${cliente.listaCotizacion}" th:text="${cotizacion.estado}"></td> -->
                     <td th:each="auto : ${cliente.listaAuto}" th:text="${auto.vin}"></td>
                     <td>
-                      <!-- <a th:href="@{/dashboard/detalle/__${cliente.idCliente}__}">Ver más</a> -->
+                      <a th:href="@{/clientes/detalle/{id}(id=${cliente.idCliente})}">Ver detalles</a>
                     </td>
                   </tr>
                 </tbody>
