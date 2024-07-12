@@ -18,7 +18,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
+import org.springframework.stereotype.Service;
+@Service
 public class UsuarioService  implements UserDetailsService {
 
     @Autowired
@@ -40,20 +41,31 @@ public class UsuarioService  implements UserDetailsService {
 
     }
 
+@Transactional
+    public void registrar(String nombreUsuario, String password, String email, Rol rol) throws MiException {
+        validar(nombreUsuario, password, email);
 
-    @Transactional
-    public void registrar( String nombreUsuario, String password, String password2, String email,Rol rol) throws MiException, ValidationException {
-
-        // validar(nombreUsuario, nombreUsuario,password, password2, email);
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(nombreUsuario);
-         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setEmail(email);
-        usuario.setRol(Rol.ADMIN);
-
+        usuario.setRol(rol);
 
         usuariorepo.save(usuario);
     }
+
+    private void validar(String nombreUsuario, String password, String email) throws MiException {
+        if (nombreUsuario == null || nombreUsuario.isEmpty()) {
+            throw new MiException("El nombre de usuario no puede estar vacío");
+        }
+        if (password == null || password.isEmpty() || password.length() < 6) {
+            throw new MiException("La contraseña no puede estar vacía y debe tener al menos 6 caracteres");
+        }
+        if (email == null || email.isEmpty() || !email.contains("@")) {
+            throw new MiException("El email no puede estar vacío y debe ser válido");
+        }
+    }
+   
 
         @Transactional
         public void modificarUsuario(String nombreUsuario, String password, String password2, String email,Rol rol) throws MiException, ValidationException {//agrego el parametro para la imagen - gise

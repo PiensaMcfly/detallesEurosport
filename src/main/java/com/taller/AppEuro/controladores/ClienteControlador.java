@@ -10,6 +10,7 @@ import com.taller.AppEuro.servicios.ClienteService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,13 +26,13 @@ public class ClienteControlador {
 
     @Autowired
     private ClienteService clienteService;
-
+ @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/nuevo")
     public String mostrarFormularioDeCreacion(Model model) {
         model.addAttribute("cliente", new Cliente());
         return "Cliente_form.html";
     }
-
+ @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/sumbit")
     public String crearCliente(Cliente cliente) throws MiException {
         clienteService.saveCliente(cliente.getRut(), cliente.getNombre(), cliente.getApellido(), cliente.getTelefono(), cliente.getMail(), cliente.getNumeroVin());
@@ -39,7 +40,7 @@ public class ClienteControlador {
     }
     
   
-    
+     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
    @GetMapping ("/lista")
     public String obtenerTodosLosClientes(Model model) {
         List<Cliente> clientes = clienteService.obtenerTodosLosClientes();
@@ -47,7 +48,7 @@ public class ClienteControlador {
         return "lista_clientes.html";
     }
   
-
+ @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/editar/{id}")
     public String mostrarFormularioDeEditarCliente(@PathVariable Long id, Model model) throws MiException {
         Optional<Cliente> cliente = clienteService.obtenerClientePorId(id);
@@ -58,20 +59,20 @@ public class ClienteControlador {
             throw new MiException("Cliente no encontrado");
         }
     }
-
+ @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/editar/{id}")
     public String actualizarCliente(@PathVariable Long id, @ModelAttribute Cliente clienteActualizado) throws MiException {
         clienteService.updateCliente(id, clienteActualizado);
         return "redirect:/clientes/lista";
     }
-
+ @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/eliminar/{id}")
     public String eliminarCliente(@PathVariable Long id) {
         clienteService.deleteCliente(id);
         return "redirect:/clientes/lista";
     }
 
-
+ @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/detalle/{id}")
     public String mostrarDetalleCliente(@PathVariable Long id, Model model) throws MiException {
         Optional<Cliente> clienteOpt = clienteService.obtenerClientePorId(id);

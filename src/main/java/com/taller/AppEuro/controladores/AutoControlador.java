@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,14 +40,14 @@ public class AutoControlador {
     
     @Autowired 
     private IAutoRepository autorepo;
-    
+     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/autos")
     public String formulario() {
         return "auto_form.html";
     }
 
     
-    
+     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
       @GetMapping("/nuevo")
     public String mostrarFormularioDeCreacion(Model model) {
         
@@ -56,7 +57,7 @@ public class AutoControlador {
         return "auto_form.html";
     }
 
-    
+     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
      @PostMapping("/save")
     public String saveAuto(@ModelAttribute("auto") Auto auto) {
         autorepo.save(auto);
@@ -65,14 +66,14 @@ public class AutoControlador {
     }
     //----------------------------------------------------
 
-
+ @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/lista")
     public String obtenerTodosLosAutos(Model model) {
         List<Auto> autos = autoService.obtenerTodosLosAutos();
         model.addAttribute("autos", autos);
         return "lista_auto.html";
     }
-
+ @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public String obtenerAutoPorId(@PathVariable Long id, Model model) throws MiException {
         Optional<Auto> auto = autoService.obtenerAutoPorId(id);
@@ -83,7 +84,7 @@ public class AutoControlador {
             throw new MiException("Auto no encontrado");
         }
     }
-
+ @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/editar/{id}")
     public String mostrarFormularioDeEdicion(@PathVariable Long id, Model model) throws MiException {
         Optional<Auto> auto = autoService.obtenerAutoPorId(id);
@@ -95,13 +96,13 @@ public class AutoControlador {
             throw new MiException("Auto no encontrado");
         }
     }
-
+ @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/editar/{id}")
     public String actualizarAuto(@PathVariable Long id, @ModelAttribute Auto autoActualizado) throws MiException {
         autoService.actualizarAuto(id, autoActualizado.getModelo(), autoActualizado.getMarca(), autoActualizado.getPatente(), autoActualizado.getVin(), autoActualizado.getKilometraje(), autoActualizado.getComentario(), autoActualizado.getFechadeCreacion());
         return "redirect:/autos/lista";
     }
-
+ @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/eliminar/{id}")
     public String eliminarAuto(@PathVariable Long id) {
         autoService.deleteAuto(id);

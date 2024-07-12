@@ -17,6 +17,7 @@ import com.taller.AppEuro.servicios.CotizacionService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,7 +45,7 @@ public class DashboardControlador {
     private IAutoRepository autorepo;
     
 
-
+ @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/panel")
     public String Dash(Model model){
          List<Cotizacion>cotizaciones = cotizacionService.obtenerTodasLasCotizaciones();
@@ -61,7 +62,7 @@ public class DashboardControlador {
         
     return "dashboard.html";}
     
-   
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/detalle/{id}")
   public String detallesCliente(@PathVariable Long id, Model model) {
         Optional<Cliente> cliente = clienteService.obtenerClientePorId(id);

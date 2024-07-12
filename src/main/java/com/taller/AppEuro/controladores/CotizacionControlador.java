@@ -15,6 +15,7 @@ import com.taller.AppEuro.servicios.CotizacionService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +37,7 @@ public class CotizacionControlador {
     
     @Autowired 
     private ICotizacionRepository cotirepo;
-
+ @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/nueva")
     public String mostrarFormularioDeCreacion(Model model) {
         List<Cliente> clientes= clienteService.obtenerTodosLosClientes();
@@ -47,14 +48,14 @@ public class CotizacionControlador {
         return "coti_form.html";
     }
 
-    
+     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
      @PostMapping("/save")
     public String saveCotizacion(@ModelAttribute("cotizacion") Cotizacion cotizacion) {
       cotirepo.save(cotizacion);
         return "redirect:/dashboard/panel";
     
     }
-    
+     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
       @PostMapping("/save1")
     public String saveCotizacion1(@ModelAttribute("cotizacion") Cotizacion cotizacion) {
         cotirepo.save(cotizacion);
@@ -63,14 +64,14 @@ public class CotizacionControlador {
     }
     
   
-    
+     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   @GetMapping("/lista")
     public String listarCotizaciones(Model model) {
         List<Cotizacion>cotizaciones = cotizacionService.obtenerTodasLasCotizaciones();
         model.addAttribute("cotizaciones", cotizaciones);
         return "lista_coti.html";
     }
-
+ @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/editar/{id}")
     public String editarCotizacion(@PathVariable Long id, Model model) {
         Optional<Cotizacion> cotizacion = cotizacionService.obtenerCotizacionPorId(id);
@@ -80,7 +81,7 @@ public class CotizacionControlador {
         model.addAttribute("encargados", Encargado.values());
         return "editar_coti.html";
     }
-
+ @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/editar/{id}")
     public String updateCotizacion(@RequestParam("idCotizacion") Long idCotizacion,
                                    @RequestParam("monto") Long monto,
@@ -97,7 +98,7 @@ public class CotizacionControlador {
             return "editCotizacion";
         }
     }
-
+ @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/eliminar/{id}")
     public String eliminarCotizacion(@PathVariable Long id) {
         cotizacionService.deleteCotizacion(id);
