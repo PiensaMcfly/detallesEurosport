@@ -6,6 +6,7 @@
     <title>App EurtoSport Chile</title>
     <link rel="stylesheet" href="/dashboard.css">
     <link rel="stylesheet" href="/tablaclientes.css">
+    <link rel="stylesheet" href="/registro.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
@@ -39,11 +40,7 @@
       <h1>EDITAR COTIZACION</h1>
       <p>
        Ingresa los Datos del Cliente
-        <code>---</code>.
-
-        <a href="/clientes/nuevo"><button type="button" class="btn btn-primary btn-lg">Nueva Cotizacion</button></a>
-    
-
+  
          <!-- Container -->
 <div class="container">
 
@@ -62,10 +59,10 @@
         <form th:action="@{/cotizaciones/editar/__${cotizacion.idCotizacion}__}"  th:object="${cotizacion}" method="post">
         <input type="hidden" th:field="*{idCotizacion}" th:value="${cotizacion.idCotizacion}"/>
        
-        <label for="cliente">Cliente:</label>
+        <!-- <label for="cliente">Cliente:</label>
         <select id="cliente" th:field="*{cliente.idCliente}">
             <option th:each="cliente : ${clientes}" th:value="${cliente.idCliente}" th:text="${cliente.nombre + ' ' + cliente.apellido}"></option>
-        </select>
+        </select> -->
 
         <label for="monto">Monto:</label>
         <input type="number" id="monto" th:field="*{monto}" th:value="${cotizacion.monto}" required/><br>
@@ -86,7 +83,9 @@
         <label for="formaPago">Forma de Pago:</label>
         <input type="text" id="formaPago" th:field="*{formaPago}" th:value="${cotizacion.formaPago}" required/><br>
 
-        <button type="submit">Actualizar Cotización</button>
+        <button type="submit" class="btn btn-secondary btn-lg">Actualizar Cotización</button>
+        <br><br>
+        <a href="/cotizaciones/lista"><button type="button" class="btn btn-primary btn-lg">Volver</button></a>
     </form>
         
     

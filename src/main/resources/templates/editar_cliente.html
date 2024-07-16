@@ -6,6 +6,7 @@
     <title>App EurtoSport Chile</title>
     <link rel="stylesheet" href="/dashboard.css">
     <link rel="stylesheet" href="/tablaclientes.css">
+    <link rel="stylesheet" href="/registro.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
@@ -38,11 +39,6 @@
       
       <h1>Modificar Cliente</h1>
       <p>
-       Ingresa los Datos del Cliente a modificar
-        <code>---</code>.
-
-        <a href="/clientes/nuevo"><button type="button" class="btn btn-primary btn-lg">Nueva Cotizacion</button></a>
-    
 
          <!-- Container -->
 <div class="container">
@@ -79,7 +75,10 @@
         <label for="numeroVin">Número VIN:</label>
         <input type="text" id="numeroVin" th:field="*{numeroVin}" required/><br/>
 
-        <button type="submit" th:text="${cliente.idCliente == null} ? 'Registrar' : 'Actualizar'"></button>
+        <button class="btn btn-secondary btn-lg" type="submit" th:text="${cliente.idCliente == null} ? 'Registrar' : 'Actualizar'"></button>
+        <br>
+        <br>
+        <a href="/clientes/lista"><button type="button" class="btn btn-primary btn-lg">Volver</button></a>
     </form>
         
     

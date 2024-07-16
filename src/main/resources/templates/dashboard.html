@@ -34,17 +34,16 @@
       </div>
     </nav>
     <div class="container-fluid">
+      <div class="cartelFormularios">
+        <h1>ULTIMOS CLIENTES </h1>
+      </div>
       
-      
-      <h1>Últimos Clientes.-</h1>
       <p>
         <!-- TABLA DE ULTIMOS CLIENTES  -->
-        <!-- Container -->
-        <a href="/clientes/nuevo"><button type="button" class="btn btn-primary btn-lg">Nueva Cotizacion <img width="20px" src="/img/plus.ico" alt="plusico"></button></a>
+        <!-- Container --> 
+        <a href="/clientes/nuevo"><button type="button" class="btn btn-block btn-lg">Nueva Cotizacion <img width="20px" src="/img/plus.ico" alt="plusico"></button></a>
         <div class="container">
-          <a th:href="@{/logout}">
-            <i class="zmdi zmdi-comment-more"></i> Cerrar Sesion
-          </a>
+          
           <!-- Main Content-->
           <div class="masthead">
             
@@ -64,9 +63,9 @@
                     <th>Email</th>
                     <th>Descripción </th>
                     <th>Monto ($)</th>
-                    <th>Estado </th>
+                    <!-- <th>Estado </th> -->
                     <th>N° VIN</th>
-                    <!-- <th>Acciones</th> -->
+                    <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -80,7 +79,10 @@
                     <!-- <td th:each="cotizacion : ${cliente.listaCotizacion}" th:text="${cotizacion.estado}"></td> -->
                     <td th:each="auto : ${cliente.listaAuto}" th:text="${auto.vin}"></td>
                     <td>
-                      <a th:href="@{/clientes/detalle/{id}(id=${cliente.idCliente})}">Ver detalles</a>
+                      <!-- <a th:href="@{/clientes/detalle/{id}(id=${cliente.idCliente})}">Ver detalles</a> -->
+                      <a th:href="@{/clientes/detalle/{id}(id=${cliente.idCliente})}" class="btn btn-info">Ver <i class="zmdi zmdi-eye"></i></a>
+                      <a th:href="@{/clientes/editar/{id}(id=${cliente.idCliente})}" class="btn btn-warning"><i class="zmdi zmdi-edit"></i></a>
+                      <a th:href="@{/clientes/eliminar/{id}(id=${cliente.idCliente})}" class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
                     </td>
                   </tr>
                 </tbody>
@@ -99,8 +101,19 @@
 <footer>
   <p> Cuyo Devs Derechos Reservados 2024</p>
 </footer>
+
+<script>
+  $(document).ready(function () {
+      $('#sidebarCollapse').on('click', function () {
+          $('#sidebar').toggleClass('active');
+          $('#viewport').toggleClass('active');
+      });
+  });
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/Tablaclientes.js"></script>
 <script src="/js/3forms.js"></script>
+<script src="/js/sidebar.js"></script>
 </body>
 </html>

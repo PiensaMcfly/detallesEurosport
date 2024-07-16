@@ -34,16 +34,16 @@
       </div>
     </nav>
     <div class="container-fluid">
+<div class="cartelFormularios">
+  <h1>LISTA DE COTIZACIONES </h1>
+</div>
 
-      <code>
-      <h1>Cotizaciones</h1>
-      <p>
-       Ingresa los Datos del Auto o Cliente
-        ---</code>.
-
-        <button type="button" class="btn btn-primary btn-lg">Nueva Cotizacion</button>
-        <button type="button" class="btn btn-secondary btn-lg">Nuevo Cliente</button>
-
+       <a href="/cotizaciones/nueva"> <button 
+        type="button" class="btn btn-primary btn-lg">Nueva Cotizacion <img src="/img/plus.ico" alt="" width="15px"></button></a>
+        <br><br>
+        
+        <p>  Ingresa los Datos del Cliente
+        <code>---</code></p>
 
         <!-- TABLA DE ULTIMOS CLIENTES  -->
          <!-- Container -->
@@ -52,7 +52,7 @@
   <!-- Main Content-->
   <div class="masthead">
     
-<input type="text" id="buscar" onkeyup="buscar()" placeholder="Ingresa Numero Vin" title="Empieza a escribir para buscar">
+<input type="text" id="buscar" onkeyup="buscar()" placeholder="Buscar..." title="Empieza a escribir para buscar">
     
 <!-- Contenido Tabla -->
 
@@ -77,8 +77,8 @@
             <td th:text="${cotizacion.estado}"></td>
             <td th:text="${cotizacion.encargado}"></td>
             <td>
-                <a th:href="@{/cotizaciones/editar/{id}(id=${cotizacion.idCotizacion})}">Editar</a>
-                <a th:href="@{/cotizaciones/eliminar/{id}(id=${cotizacion.idCotizacion})}">Eliminar</a>
+                <a th:href="@{/cotizaciones/editar/{id}(id=${cotizacion.idCotizacion})}"class="btn btn-warning"><i class="zmdi zmdi-edit"></i></a>
+                <a th:href="@{/cotizaciones/eliminar/{id}(id=${cotizacion.idCotizacion})}"class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
             </td>
         </tr>
         

@@ -32,15 +32,17 @@
       </div>
     </nav>
     <div class="container-fluid">
-
-      
-      <h1>Lista Clientes</h1>
+      <div class="cartelFormularios">
+        <h1>LISTA DE CLIENTES </h1>
+      </div>
+      <br>
+      <a href="/clientes/nuevo"> <button type="button" class="btn btn-primary btn-lg">Nuevo Cliente</button></a>
+      <a href="/cotizaciones/nueva"><button type="button" class="btn btn-warning btn-lg">Nueva Cotizacion</button></a>
+      <br><br>
       <p>
        Ingresa los Datos del Cliente
         <code>---</code>.
 
-        <button type="button" class="btn btn-primary btn-lg">Nueva Cotizacion</button>
-        <button type="button" class="btn btn-secondary btn-lg">Nuevo Cliente</button>
 
 
         <!-- TABLA DE ULTIMOS CLIENTES  -->
@@ -50,7 +52,7 @@
   <!-- Main Content-->
   <div class="masthead">
     
-<input type="text" id="buscar" onkeyup="buscar()" placeholder="Ingresa Numero Vin" title="Empieza a escribir para buscar">
+<input type="text" id="buscar" onkeyup="buscar()" placeholder="Buscar..." title="Empieza a escribir para buscar">
     
 <!-- Contenido Tabla -->
 
@@ -79,9 +81,8 @@
                 <td th:text="${cliente.mail}"></td>
                 <td th:text="${cliente.numeroVin}"></td>
                 <td>
-                    <a th:href="@{/clientes/editar/{id}(id=${cliente.idCliente})}">Editar</a>
-                    <a th:href="@{/clientes/eliminar/{id}(id=${cliente.idCliente})}">Eliminar</a>
-                </td>
+                    <a th:href="@{/clientes/editar/{id}(id=${cliente.idCliente})}"class="btn btn-warning"><i class="zmdi zmdi-edit"></i></a>
+                    <a th:href="@{/clientes/eliminar/{id}(id=${cliente.idCliente})}"class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
             </tr>
         </tbody>
       </table>
