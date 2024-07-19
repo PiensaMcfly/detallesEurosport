@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -177,6 +179,16 @@ public class ClienteService {
         }
 
     }
+
+    public Page<Cliente> findAll(PageRequest pageRequest) {
+        return clienterepo.findAll(pageRequest);
+    }
+
+
+    public Page<Cliente> search(String keyword, PageRequest pageRequest) {
+        return clienterepo.findByKeyword(keyword, pageRequest);
+    }
+
 
 
 }

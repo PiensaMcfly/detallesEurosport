@@ -5,7 +5,10 @@
 }
 
 header {
-    background-color: white;
+    /* background-color: white; */
+    background: url(/img/fondo.jpg);
+    background-size: cover;
+    background-position: center;
 }
 
 h1,h2,h3 {

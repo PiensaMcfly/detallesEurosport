@@ -21,7 +21,7 @@ form {
 	width: 380px;
 	margin: 4em auto;
 	padding: 3em 2em 2em 2em;
-	background: #fafafa; 
+	background: #fafafa;
 	border: 1px solid #ebebeb;
 	box-shadow: rgba(0,0,0,0.14902) 0px 1px 1px 0px,rgba(0,0,0,0.09804) 0px 1px 2px 0px;
 }
@@ -51,12 +51,12 @@ input:focus { outline: none; }
 
 label {
 	color: #999; 
-	font-size: 18px;
+	font-size: 11px;
 	font-weight: normal;
 	position: absolute;
 	pointer-events: none;
 	left: 5px;
-	top: 10px;
+	top: 50px;
 	transition: all 0.2s ease;
 }
 
@@ -66,7 +66,7 @@ label {
 input:focus ~ label, input.used ~ label {
 	top: -20px;
   transform: scale(.75); left: -2px;
-	/* font-size: 14px; */
+	 font-size: 10px; 
 	color: #4a89dc;
 }
 
@@ -108,7 +108,7 @@ input:focus ~ .bar:before, input:focus ~ .bar:after { width: 50%; }
 	top: 25%; 
 	left: 0;
 	pointer-events: none;
-	opacity: 0.5;
+	opacity: 0.1;
 }
 
 
@@ -227,7 +227,7 @@ footer a:hover {
 }
 
 footer img {
-	width: 300px;
+	width: 250px;
 	transition: all .2s ease;
 }
 
