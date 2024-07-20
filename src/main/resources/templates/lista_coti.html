@@ -78,7 +78,7 @@
             <td th:text="${cotizacion.encargado}"></td>
             <td>
                 <a th:href="@{/cotizaciones/editar/{id}(id=${cotizacion.idCotizacion})}"class="btn btn-warning"><i class="zmdi zmdi-edit"></i></a>
-                <a th:href="@{/cotizaciones/eliminar/{id}(id=${cotizacion.idCotizacion})}"class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
+                <a  onclick="return confirm('¿Estás seguro de que deseas eliminar esta Cotizacion?')" th:href="@{/cotizaciones/eliminar/{id}(id=${cotizacion.idCotizacion})}"class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
             </td>
         </tr>
         

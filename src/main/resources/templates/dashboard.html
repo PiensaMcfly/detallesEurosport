@@ -6,6 +6,7 @@
     <title>App EuroSport Chile</title>
     <link rel="stylesheet" href="/dashboard.css">
     <link rel="stylesheet" href="/tablaclientes.css">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 </head>
@@ -31,12 +32,14 @@
                 </ul>
             </div>
         </nav>
-        <div class="container-fluid">
+        <div class="container-fluid mt-4">
+
           <form action="#" th:action="@{/panel/search}" th:method="get">
             <label for="keyword">Buscar:</label>
             <input type="text" id="keyword" name="keyword" placeholder="Ingrese palabra clave" />
             <button type="submit">Buscar</button>
         </form>
+        
             <p>
               <div class="cartelFormularios">
                 <h1>ULTIMOS CLIENTES</h1>
@@ -74,7 +77,8 @@
                                         <td>
                                             <a th:href="@{/clientes/detalle/{id}(id=${cliente.idCliente})}" class="btn btn-info">Ver <i class="zmdi zmdi-eye"></i></a>
                                             <a th:href="@{/clientes/editar/{id}(id=${cliente.idCliente})}" class="btn btn-warning"><i class="zmdi zmdi-edit"></i></a>
-                                            <a th:href="@{/clientes/eliminar/{id}(id=${cliente.idCliente})}" class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
+                                            <a  onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?')" th:href="@{/clientes/eliminar/{id}(id=${cliente.idCliente})}" class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
+    
                                         </td>
                                     </tr>
                                 </tbody>
@@ -112,13 +116,13 @@
 </footer>
 
 <script>
-  $(document).ready(function () {
-      $('#sidebarCollapse').on('click', function () {
-          $('#sidebar').toggleClass('active');
-          $('#viewport').toggleClass('active');
-      });
-  });
-</script>
+        $(document).ready(function() {
+            $('#menu-toggle').click(function() {
+                $('#viewport').toggleClass('active');
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/Tablaclientes.js"></script>

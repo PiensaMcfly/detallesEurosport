@@ -38,8 +38,8 @@ public class UsuarioService  implements UserDetailsService {
             return new User(usuario.getNombreUsuario(), usuario.getPassword(), permisos);
         }else{
         return null;}
-
     }
+
 
 @Transactional
     public void registrar(String nombreUsuario, String password, String email, Rol rol) throws MiException {
@@ -63,6 +63,7 @@ public class UsuarioService  implements UserDetailsService {
         }
         if (email == null || email.isEmpty() || !email.contains("@")) {
             throw new MiException("El email no puede estar vacío y debe ser válido");
+
         }
     }
    

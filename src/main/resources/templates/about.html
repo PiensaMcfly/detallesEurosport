@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App EuroSport Chile</title>
+    <link rel="stylesheet" href="/dashboard.css">
+    <link rel="stylesheet" href="/tablaclientes.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+</head>
+<body>
+    
+
+  <main>
+  <div th:replace="fragments/sidebar :: sidebar"></div>
+  <!-- Sidebar -->
+  
+  
+  
+  <div id="viewport">
+    <!-- CONTENIDO DASHBOARD -->
+    <div id="content">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#"><i class="zmdi zmdi-notifications text-danger"></i></a>
+                    </li>
+                    <li><a href="/dashboard/panel">Inicio</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+        <div class="container">
+            <h1 class="text-center">Flujo del Programa y Funciones</h1>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Descripción General</h3>
+                </div>
+                <div class="panel-body">
+                    <p>Esta aplicación está diseñada para gestionar la información de un taller mecánico, incluyendo clientes, autos y cotizaciones. El flujo del programa y las principales funciones se describen a continuación:</p>
+                </div>
+            </div>
+    
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Flujo del Programa</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>1. Registro de Usuario:</strong> Los usuarios pueden registrarse proporcionando su nombre, correo electrónico y contraseña.</li>
+                        <li class="list-group-item"><strong>2. Inicio de Sesión:</strong> Los usuarios registrados pueden iniciar sesión para acceder a la aplicación.</li>
+                        <li class="list-group-item"><strong>3. Panel de Control:</strong> Una vez iniciada la sesión, los usuarios acceden al panel de control donde pueden gestionar clientes, autos y cotizaciones.</li>
+                        <li class="list-group-item"><strong>4. Gestión de Clientes:</strong> Los usuarios pueden añadir, editar y eliminar información de clientes.</li>
+                        <li class="list-group-item"><strong>5. Gestión de Autos:</strong> Los usuarios pueden añadir, editar y eliminar información de autos asociados a los clientes.</li>
+                        <li class="list-group-item"><strong>6. Gestión de Cotizaciones:</strong> Los usuarios pueden crear, editar y eliminar cotizaciones para los autos de los clientes.</li>
+                        <li class="list-group-item"><strong>7. Búsqueda y Filtrado:</strong> Los usuarios pueden buscar y filtrar clientes, autos y cotizaciones utilizando diferentes criterios.</li>
+                        <li class="list-group-item"><strong>8. Exportación a PDF:</strong> Los usuarios pueden exportar la información detallada de los clientes a formato PDF.</li>
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Funciones Principales</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>Registro de ADMIN :</strong> Permite registrar un nuevo admin o acceso a la plataforma a continuacion el boton    <a href="/registrar"><button class="btn btn-danger">Registro</button></a>.</li>
+                        <li class="list-group-item"><strong>Registro de Clientes:</strong> Permite registrar nuevos clientes en la base de datos del taller.</li>
+                        <li class="list-group-item"><strong>Registro de Autos:</strong> Permite registrar nuevos autos y asociarlos a los clientes existentes.</li>
+                        <li class="list-group-item"><strong>Creación de Cotizaciones:</strong> Permite crear nuevas cotizaciones para los autos registrados.</li>
+                        <li class="list-group-item"><strong>Edición de Información:</strong> Permite editar la información de clientes, autos y cotizaciones.</li>
+                        <li class="list-group-item"><strong>Eliminación de Registros:</strong> Permite eliminar registros de clientes, autos y cotizaciones.</li>
+                        <li class="list-group-item"><strong>Búsqueda y Filtrado:</strong> Permite buscar y filtrar información específica utilizando palabras clave.</li>
+                        <li class="list-group-item"><strong>Exportación a PDF:</strong> Permite exportar la información detallada de los clientes a un archivo PDF.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <a href="/dashboard/panel" class="btn btn-default">Volver al Panel de Control</a>
+        </div>
+
+    </div>
+</div>
+
+
+</main>
+<footer>
+  <p> Cuyo Devs Derechos Reservados 2024</p>
+</footer>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+<script src="/js/sidebar.js"></script>
+</body>
+</html>

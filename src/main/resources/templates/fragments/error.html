@@ -1,19 +1,10 @@
 
 <div th:fragment="mensajeError">
-    <div th:if="${exito} != null" class="card text-success bg-light mb-3 mt-3 mensajeExito">
-        <div class="card-body">
-            <h4 class="card-title">Exito <i class="fa-solid fa-circle-check" style="color: #14e136;"></i></h4>
-            <p class="card-text" th:text="${exito}"></p>
-        </div>
+<div class="container">
+    <div th:if="${successMessage}" class="alert alert-success" role="alert">
+        <i class="fa fa-check-circle"></i> <span th:text="${successMessage}"></span>
     </div>
-    
-    <div th:if="${Error} != null" class="card text-danger bg-light mb-3 mensajeError">
-        <div class="card-body">
-            <h4 class="card-title">Error <i class="fa-solid fa-circle-exclamation" style="color: #d72d47;"></i></h4>
-            <p class="card-text" th:text="${Error}"></p>
-        </div>
+    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+        <i class="fa fa-times-circle"></i> <span th:text="${errorMessage}"></span>
     </div>
-</div>
-
-
 <!-- <div th:replace="/fragments/card :: div"></div> asi lo llamo -        (ruta)           (nombre del fragment a llamar).-->

@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-/**
- *
- * @author Usuario
- */
+
 @Controller
 public class ErroresControlador implements ErrorController {
 
@@ -46,7 +43,7 @@ public class ErroresControlador implements ErrorController {
                 break;
             }
             case 405: {
-                errorMsg = "Error raaro 405";
+                errorMsg = "Error  405";
                 break;
             }
             case 500: {

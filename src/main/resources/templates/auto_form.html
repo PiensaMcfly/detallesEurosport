@@ -11,10 +11,10 @@
   <title>Registro Nueva Cotizacion</title>
 </head>
 <body>
-
+  
+  <!-- Sidebar -->
+  <div th:replace="fragments/sidebar :: sidebar"></div>
     <div id="viewport">
-        <!-- Sidebar -->
-        <div th:replace="fragments/sidebar :: sidebar"></div>
 
         <!-- Content -->
         <div id="content">
@@ -26,7 +26,6 @@
                   </a>
                 </li>
                 <li><a href="/dashboard/panel">Inicio</a></li>
-      
               </ul>
             </div>
           </nav>
@@ -37,11 +36,12 @@
     <div class="card">
     <h1>Nuevo Auto</h1>
     <form th:action="@{/autos/save}" th:object="${auto}" method="post">
+      <h5>IMPORTANTE (Buscar cliente)</h5>
         <label for="cliente">Cliente:</label>
         <select id="cliente" th:field="*{cliente.idCliente}">
             <option th:each="cliente : ${clientes}" th:value="${cliente.idCliente}" th:text="${cliente.nombre + ' ' + cliente.apellido}"></option>
         </select>
-        <code>importante (Buscar cliente)</code>
+      
         <label for="modelo">Modelo:</label>
         <input type="text" id="modelo" th:field="*{modelo}" required><br>
         <label for="marca">Marca:</label>

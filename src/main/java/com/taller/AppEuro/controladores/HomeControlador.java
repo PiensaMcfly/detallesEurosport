@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/")
@@ -37,29 +38,30 @@ public class HomeControlador {
     
     
      //Registro ADM-----------------
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    @GetMapping("/registrar")
-    public String mostrarFormularioDeRegistro(Model model ,Rol rol) {
-        model.addAttribute("usuario", new Usuario());
-        model.addAttribute("roles", Rol.values());
-        return "registrouser.html";
-    }
+     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+     @GetMapping("/registrar")
+     public String mostrarFormularioDeRegistro(Model model) {
+         model.addAttribute("usuario", new Usuario());
+         model.addAttribute("roles", Rol.values());
+         return "registrouser.html";
+     }
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/registrar")
-    public String registrarUsuario( Usuario usuario, BindingResult result, Model model) {
+    public String registrarUsuario(Usuario usuario, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             model.addAttribute("roles", Rol.values());
             return "registrouser.html";
         }
         try {
             usuarioservi.registrar(usuario.getNombreUsuario(), usuario.getPassword(), usuario.getEmail(), usuario.getRol());
+          //  redirectAttributes.addFlashAttribute("exito", "Usuario registrado correctamente.");
+            redirectAttributes.addFlashAttribute("successMessage", "Cliente registrado exitosamente.");
             return "redirect:/registrar";
         } catch (MiException e) {
-            model.addAttribute("error", e.getMessage());
-            model.addAttribute("roles", Rol.values());
-            return "registrouser.html";
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/registrar";
         }
     }
-
 
 }

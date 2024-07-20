@@ -42,8 +42,7 @@ public class DashboardControlador {
     
     @Autowired 
     private ICotizacionRepository cotirepo;
-    
-       @Autowired
+    @Autowired
     private AutoService autoService;
     
     @Autowired 
@@ -60,10 +59,10 @@ public class DashboardControlador {
          model.addAttribute("autos",autos);
          model.addAttribute("clientes1", clientes1);
 
-//Lista de ult clientes ordenados por Llegado
-     Page<Cliente> clientes = clienteService.findAll(PageRequest.of(page, 20, Sort.by(Sort.Direction.DESC, "idCliente")));
-     model.addAttribute("clientes", clientes);
-     model.addAttribute("currentPage", page);
+       //Lista de ult clientes ordenados por orden de Llegada
+         Page<Cliente> clientes = clienteService.findAll(PageRequest.of(page, 100, Sort.by(Sort.Direction.DESC, "idCliente")));
+         model.addAttribute("clientes", clientes);
+         model.addAttribute("currentPage", page);
 
          model.addAttribute("estados",EstadoCotizacion.values());
          model.addAttribute("encargados", Encargado.values());
@@ -99,6 +98,12 @@ public class DashboardControlador {
 
         return "detalle_cliente.html";
     }
-  
-    
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @GetMapping("/flujo")
+    public String aboutflujo(){
+     return "about.html";
+    }
+
+
 }

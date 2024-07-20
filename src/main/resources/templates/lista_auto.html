@@ -79,7 +79,7 @@
                 <td th:text="${auto.cliente.nombre} + ' ' + ${auto.cliente.apellido}"></td>
                 <td>
                     <a th:href="@{/autos/editar/{id}(id=${auto.idAuto})}" class="btn btn-warning"><i class="zmdi zmdi-edit"></i></a>
-                    <a th:href="@{/autos/eliminar/{id}(id=${auto.idAuto})}" class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
+                    <a  onclick="return confirm('¿Estás seguro de que deseas eliminar este Auto?')" th:href="@{/autos/eliminar/{id}(id=${auto.idAuto})}" class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
                 </td>
             </tr>
         </tbody>
