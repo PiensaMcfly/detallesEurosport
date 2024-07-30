@@ -1,6 +1,7 @@
 
 package com.taller.AppEuro.entities;
 
+import com.taller.AppEuro.enumeraciones.CategoriaReparacion;
 import com.taller.AppEuro.enumeraciones.Encargado;
 import com.taller.AppEuro.enumeraciones.EstadoCotizacion;
 import javax.persistence.Entity;
@@ -32,7 +33,8 @@ public class Cotizacion {
     @Enumerated(EnumType.STRING)
     private Encargado encargado;
     private String formaPago;
-   
+    @Enumerated(EnumType.STRING)
+    private CategoriaReparacion categoria;
 @ManyToOne
  @JoinColumn(name = "cliente_id")
  private Cliente cliente;

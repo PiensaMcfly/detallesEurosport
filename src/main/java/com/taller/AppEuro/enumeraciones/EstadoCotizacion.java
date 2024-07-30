@@ -4,10 +4,7 @@
  */
 package com.taller.AppEuro.enumeraciones;
 
-/**
- *
- * @author MegaTecnologia
- */
+
 public enum EstadoCotizacion {
      PENDIENTE, APROBADO, CANCELADO, LISTO;
 }
