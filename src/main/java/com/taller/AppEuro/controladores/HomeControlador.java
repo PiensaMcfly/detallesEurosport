@@ -38,7 +38,7 @@ public class HomeControlador {
     
     
      //Registro ADM-----------------
-     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    // @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
      @GetMapping("/registrar")
      public String mostrarFormularioDeRegistro(Model model) {
          model.addAttribute("usuario", new Usuario());
@@ -46,7 +46,7 @@ public class HomeControlador {
          return "registrouser.html";
      }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+   // @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/registrar")
     public String registrarUsuario(Usuario usuario, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {

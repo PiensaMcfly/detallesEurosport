@@ -4,5 +4,5 @@
  */
 package com.taller.AppEuro.enumeraciones;
 public enum Encargado {
-   MARTIN,JEAN,MECANICO1,MECANICO2
+   MARTIN,JEAN,MECANICO1,MECANICO2,MECANICO3
 }

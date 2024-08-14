@@ -62,6 +62,11 @@
               <option th:each="encargado : ${encargados}" th:value="${encargado}" th:text="${encargado}">Encargado</option>
           </select>
           
+          <label for="categoria">Categoria:</label>
+          <select id="categoria" name="categoria" th:field="*{categoria}">
+              <option th:each="categoria : ${categorias}" th:value="${categoria}" th:text="${categoria}">Categoria</option>
+          </select>
+
           <label for="formaPago">Forma de Pago:</label>
           <input type="text" id="formaPago" th:field="*{formaPago}" required><br>
           

@@ -35,7 +35,7 @@
     </nav>
     <div class="container-fluid">
 <div class="cartelFormularios">
-  <h1>LISTA DE COTIZACIONES </h1>
+  <h4>LISTA DE COTIZACIONES </h4>
 </div>
 
        <a href="/cotizaciones/nueva"> <button 
@@ -67,6 +67,7 @@
             <th>Descripción</th> 
             <th>Estado</th>
             <th>Encargado</th>
+            <th>Categoria</th>
             <th>Acciones</th>
         </tr>
         <tr th:each="cotizacion : ${cotizaciones}">
@@ -76,6 +77,7 @@
            <td th:text="${cotizacion.descripcion}"></td>
             <td th:text="${cotizacion.estado}"></td>
             <td th:text="${cotizacion.encargado}"></td>
+            <td th:text="${cotizacion.categoria}"></td>
             <td>
                 <a th:href="@{/cotizaciones/editar/{id}(id=${cotizacion.idCotizacion})}"class="btn btn-warning"><i class="zmdi zmdi-edit"></i></a>
                 <a  onclick="return confirm('¿Estás seguro de que deseas eliminar esta Cotizacion?')" th:href="@{/cotizaciones/eliminar/{id}(id=${cotizacion.idCotizacion})}"class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a>
@@ -83,7 +85,7 @@
         </tr>
         
       </table>
-  <a href="/registro">Registrar Nueva Cotización</a>
+  
     </div>
   </div>
 </div>

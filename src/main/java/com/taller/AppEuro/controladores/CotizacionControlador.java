@@ -6,6 +6,7 @@ package com.taller.AppEuro.controladores;
 
 import com.taller.AppEuro.entities.Cliente;
 import com.taller.AppEuro.entities.Cotizacion;
+import com.taller.AppEuro.enumeraciones.CategoriaReparacion;
 import com.taller.AppEuro.enumeraciones.Encargado;
 import com.taller.AppEuro.enumeraciones.EstadoCotizacion;
 import com.taller.AppEuro.exepciones.MiException;
@@ -45,6 +46,7 @@ public class CotizacionControlador {
         model.addAttribute("clientes", clientes);
         model.addAttribute("estados",EstadoCotizacion.values());
         model.addAttribute("encargados", Encargado.values());
+       model.addAttribute("categorias",CategoriaReparacion.values());
         return "coti_form.html";
     }
 
