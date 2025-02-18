@@ -79,6 +79,12 @@ NAV
     color: #fcf9f9;
 }
 
+/* CARRUSEL */
+.Carrusel img {
+  object-fit: cover;
+  height: 100%;
+}
+
 
 /*--------------------------------------------------------------
 Nuestros Servicios
@@ -275,15 +281,22 @@ color: white;
 /*--------------------------------------------------------------
 SECTION VIDEO
 --------------------------------------------------------------*/
-.video{
-    padding:20px;
-    margin-bottom: 50px;
+.videoDestino {
+  display: flex;
+  justify-content: center;
+  flex-direction: row; /* Para pantallas grandes */
 }
 
-.videoDestino {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
+@media (max-width: 768px) {
+  .videoDestino {
+      flex-direction: column; /* Apilar verticalmente en móviles */
+      align-items: center; /* Centrar los videos */
+  }
+
+  .videoDestino blockquote {
+      width: 100%; /* Ancho completo en móviles */
+      max-width: 605px; /* Mantener el ancho máximo */
+  }
 }
 /*--------------------------------------------------------------
 Contacto FORMULARIO

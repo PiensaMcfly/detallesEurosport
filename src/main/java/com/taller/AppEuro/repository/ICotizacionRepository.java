@@ -8,6 +8,7 @@ package com.taller.AppEuro.repository;
 import com.taller.AppEuro.entities.Cotizacion;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 
@@ -15,4 +16,10 @@ import org.springframework.stereotype.Repository;
 public interface ICotizacionRepository extends JpaRepository<Cotizacion, Long> {
     
 //     List<Cotizacion>findbyidCliente(Long idCliente);
+@Query("SELECT c.categoria, COUNT(c), AVG(c.monto) " +
+        "FROM Cotizacion c " +
+        "GROUP BY c.categoria")
+List<Object[]> getEstadisticasPorCategoria();
+
+
 }

@@ -6,14 +6,19 @@ package com.taller.AppEuro.servicios;
 
 import com.taller.AppEuro.entities.Cliente;
 import com.taller.AppEuro.entities.Cotizacion;
+import com.taller.AppEuro.enumeraciones.CategoriaReparacion;
 import com.taller.AppEuro.enumeraciones.Encargado;
 import com.taller.AppEuro.enumeraciones.EstadoCotizacion;
 import com.taller.AppEuro.exepciones.MiException;
 import com.taller.AppEuro.repository.IAutoRepository;
 import com.taller.AppEuro.repository.IClienteRepository;
 import com.taller.AppEuro.repository.ICotizacionRepository;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -93,8 +98,51 @@ public class CotizacionService {
         }
 
     }
-    
-    
+
+    public List<Map<String, Object>> obtenerEstadisticas() {
+        // Obtener estadísticas agrupadas por categoría
+        List<Object[]> estadisticas = cotizacionrepo.getEstadisticasPorCategoria();
+
+        // Filtrar objetos nulos en la lista
+        if (estadisticas == null || estadisticas.isEmpty()) {
+            return java.util.Collections.emptyList(); // Retorna una lista vacía si no hay estadísticas
+        }
+
+        // Calcular el total de cotizaciones, ignorando nulos y evitando NullPointerException
+        int totalCotizaciones = estadisticas.stream()
+                .filter(e -> e != null && e[1] != null) // Filtra elementos nulos
+                .mapToInt(e -> ((Long) e[1]).intValue())
+                .sum();
+
+        // Procesar los resultados
+        return estadisticas.stream()
+                .filter(e -> e != null && e[0] != null && e[1] != null && e[2] != null) // Asegura que no haya nulos en las posiciones
+                .map(e -> {
+                    CategoriaReparacion categoriaReparacion = (CategoriaReparacion) e[0];
+                    Long cantidad = (Long) e[1];
+                    Double promedio = (Double) e[2];
+
+                    // Convertir CategoriaReparacion a String
+                    String categoria = categoriaReparacion.toString();
+
+                    // Calcular el porcentaje de forma segura
+                    double porcentaje = (cantidad * 100.0) / totalCotizaciones;
+
+                    // Crear un mapa con los resultados
+                    Map<String, Object> datos = new HashMap<>();
+                    datos.put("categoria", categoria);
+                    datos.put("cantidad", cantidad);
+                    datos.put("promedio", promedio);
+                    datos.put("porcentaje", porcentaje);
+
+                    return datos;
+                }).collect(Collectors.toList());
+    }
+
+
+
+
+
     //----------------------------SEGUNDA MANERA---------------------------------//
     
       @Transactional

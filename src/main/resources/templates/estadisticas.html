@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas de Cotizaciones</title>
+    <!-- Bootstrap para estilos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <style>
+        .bar-container {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .bar {
+            height: 30px;
+            background-color: #007bff;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+            line-height: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Estadísticas de Cotizaciones por Categoría</h1>
+
+    <!-- Repetir para cada estadística -->
+    <div th:each="estadistica : ${estadisticas}" class="bar-container">
+        <div class="bar" 
+             th:style="'width: ' + ${estadistica.porcentaje} + '%'" 
+             th:text="${estadistica.categoria + ': ' + estadistica.porcentaje + '%' + ' (' + estadistica.cantidad + ' Ventas)'}">
+            <!-- Esto se llenará dinámicamente con Thymeleaf -->
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

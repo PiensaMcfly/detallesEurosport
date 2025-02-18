@@ -14,6 +14,7 @@ import com.taller.AppEuro.repository.ICotizacionRepository;
 import com.taller.AppEuro.servicios.ClienteService;
 import com.taller.AppEuro.servicios.CotizacionService;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -106,4 +107,15 @@ public class CotizacionControlador {
         cotizacionService.deleteCotizacion(id);
         return "redirect:/cotizaciones/lista";
     }
+
+
+        @GetMapping("/estadisticas")
+        public String mostrarEstadisticas(Model model) {
+            // Obtener las estadísticas desde el servicio
+            model.addAttribute("estadisticas", cotizacionService.obtenerEstadisticas());
+            return "estadisticas.html"; // Nombre de la plantilla Thymeleaf
+        }
+
+
+
 }
