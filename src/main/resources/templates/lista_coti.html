@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App EurtoSport Chile</title>
+    <title>App EuroSport Chile</title>
     <link rel="stylesheet" href="/dashboard.css">
     <link rel="stylesheet" href="/tablaclientes.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
@@ -42,8 +42,6 @@
         type="button" class="btn btn-primary btn-lg">Nueva Cotizacion <img src="/img/plus.ico" alt="" width="15px"></button></a>
         <br><br>
         
-        <p>  Ingresa los Datos del Cliente
-        <code>---</code></p>
 
         <!-- TABLA DE ULTIMOS CLIENTES  -->
          <!-- Container -->
@@ -61,7 +59,8 @@
         <h1>Lista de Cotizaciones</h1>
 
       <tr>
-            <th>ID</th>
+        <th>ID</th>
+        <th>Fecha</th>
             <th>Cliente</th>
             <th>Monto ($)</th> 
             <th>Descripción</th> 
@@ -71,7 +70,8 @@
             <th>Acciones</th>
         </tr>
         <tr th:each="cotizacion : ${cotizaciones}">
-            <td th:text="${cotizacion.idCotizacion}"></td>
+          <td th:text="${cotizacion.idCotizacion}"></td>
+          <td th:text="${cotizacion.fecha}"></td>
             <td th:text="${cotizacion.cliente.nombre}"></td>
            <td th:text="${cotizacion.monto}"></td>
            <td th:text="${cotizacion.descripcion}"></td>

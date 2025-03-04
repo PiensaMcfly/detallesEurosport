@@ -13,6 +13,8 @@ import com.taller.AppEuro.exepciones.MiException;
 import com.taller.AppEuro.repository.ICotizacionRepository;
 import com.taller.AppEuro.servicios.ClienteService;
 import com.taller.AppEuro.servicios.CotizacionService;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -51,16 +53,13 @@ public class CotizacionControlador {
         return "coti_form.html";
     }
 
-     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-     @PostMapping("/save")
-    public String saveCotizacion(@ModelAttribute("cotizacion") Cotizacion cotizacion) {
-      cotirepo.save(cotizacion);
-        return "redirect:/dashboard/panel";
-    
-    }
+
      @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
       @PostMapping("/save1")
     public String saveCotizacion1(@ModelAttribute("cotizacion") Cotizacion cotizacion) {
+         if (cotizacion.getFecha() == null) {
+             cotizacion.setFecha(new Date()); // Establece la fecha actual si no se ingresó
+         }
         cotirepo.save(cotizacion);
         return "redirect:/cotizaciones/lista";
     
@@ -108,13 +107,13 @@ public class CotizacionControlador {
         return "redirect:/cotizaciones/lista";
     }
 
-
-        @GetMapping("/estadisticas")
-        public String mostrarEstadisticas(Model model) {
-            // Obtener las estadísticas desde el servicio
-            model.addAttribute("estadisticas", cotizacionService.obtenerEstadisticas());
-            return "estadisticas.html"; // Nombre de la plantilla Thymeleaf
-        }
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @GetMapping("/estadisticas")
+    public String mostrarEstadisticas(Model model) {
+        List<Map<String, Object>> estadisticas = cotizacionService.obtenerEstadisticasPorMes();
+        model.addAttribute("estadisticas", estadisticas);
+        return "estadisticas1";
+    }
 
 
 

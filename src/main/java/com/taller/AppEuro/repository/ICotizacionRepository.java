@@ -14,12 +14,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ICotizacionRepository extends JpaRepository<Cotizacion, Long> {
-    
-//     List<Cotizacion>findbyidCliente(Long idCliente);
-@Query("SELECT c.categoria, COUNT(c), AVG(c.monto) " +
-        "FROM Cotizacion c " +
-        "GROUP BY c.categoria")
-List<Object[]> getEstadisticasPorCategoria();
 
+    @Query("SELECT FUNCTION('MONTH', c.fecha), c.categoria, COUNT(c), AVG(c.monto) " +
+            "FROM Cotizacion c " +
+            "GROUP BY FUNCTION('MONTH', c.fecha), c.categoria " +
+            "ORDER BY FUNCTION('MONTH', c.fecha) ASC")
+    List<Object[]> getEstadisticasPorMesYCategoria();
 
 }

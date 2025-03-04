@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App EuroSport Chile</title>
+    <link rel="stylesheet" href="/dashboard.css">
+    <link rel="stylesheet" href="/tablaclientes.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+    
+
+  <main>
+  <div th:replace="fragments/sidebar :: sidebar"></div>
+  <!-- Sidebar -->
+  
+  
+  
+  <div id="viewport">
+    <!-- CONTENIDO DASHBOARD -->
+    <div id="content">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#"><i class="zmdi zmdi-notifications text-danger"></i></a>
+                    </li>
+                    <li><a href="/dashboard/panel">Inicio</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container-fluid mt-4">
+        
+            <p>
+              <div class="cartelFormularios">
+                <h4>ESTADISTICAS</h4>
+              </div>
+                <!-- PORCENTAJE -->
+                <div class="container mt-5">
+                    <h1 class="text-center mb-4">Estadísticas por Mes y Categoría</h1>
+                    
+                    <!-- Canvas para gráfico de barras apiladas -->
+                    <canvas id="estadisticasChart" width="800" height="400"></canvas>
+                    
+                    <!-- Tabla para mostrar el detalle de los datos -->
+                    <div class="mt-5">
+                        <h2>Detalle de Estadísticas</h2>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Mes</th>
+                                    <th>Categoría</th>
+                                    <th>Cantidad</th>
+                                    <th>Promedio</th>
+                                    <th>Porcentaje</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="dato : ${estadisticas}">
+                                    <td th:text="${dato.mes}">Mes</td>
+                                    <td th:text="${dato.categoria}">Categoría</td>
+                                    <td th:text="${dato.cantidad}">Cantidad</td>
+                                    <td th:text="${dato.promedio}">Promedio</td>
+                                    <td th:text="${#numbers.formatDecimal(dato.porcentaje, 1, 2)} + '%'">Porcentaje</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                
+                </div>
+                
+                <!-- Script para construir el gráfico -->
+                <script th:inline="javascript">
+                /*<![CDATA[*/
+                    // Se inyecta la lista de estadísticas del modelo (cada objeto contiene mes, categoria, cantidad, promedio y porcentaje)
+                    var estadisticas = /*[[${estadisticas}]]*/ [];
+                    
+                    // Obtener los meses únicos (ordenados)
+                    var meses = [...new Set(estadisticas.map(function(item) {
+                        return item.mes;
+                    }))].sort(function(a, b) { return a - b; });
+                    
+                    // Obtener las categorías únicas
+                    var categorias = [...new Set(estadisticas.map(function(item) {
+                        return item.categoria;
+                    }))];
+                    
+                    // Para cada categoría, armamos un arreglo de porcentajes correspondientes a cada mes.
+                    var datasets = categorias.map(function(cat) {
+                        var data = meses.map(function(mes) {
+                            var entry = estadisticas.find(function(item) {
+                                return item.mes === mes && item.categoria === cat;
+                            });
+                            return entry ? entry.porcentaje : 0;
+                        });
+                        // Generar un color aleatorio para el dataset
+                        var r = Math.floor(Math.random() * 256);
+                        var g = Math.floor(Math.random() * 256);
+                        var b = Math.floor(Math.random() * 256);
+                        var backgroundColor = "rgba(" + r + ", " + g + ", " + b + ", 0.5)";
+                        var borderColor = "rgba(" + r + ", " + g + ", " + b + ", 1)";
+                        return {
+                            label: cat,
+                            data: data,
+                            backgroundColor: backgroundColor,
+                            borderColor: borderColor,
+                            borderWidth: 1
+                        };
+                    });
+                    
+                    var ctx = document.getElementById('estadisticasChart').getContext('2d');
+                    var chart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: meses.map(function(mes) { return 'Mes ' + mes; }),
+                            datasets: datasets
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                x: {
+                                    stacked: true
+                                },
+                                y: {
+                                    stacked: true,
+                                    beginAtZero: true,
+                                    max: 100,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return value + '%';
+                                        }
+                                    }
+                                }
+                            },
+                            plugins: {
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return context.dataset.label + ": " + context.parsed.y.toFixed(2) + "%";
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                /*]]>*/
+                </script>
+
+
+                        <!-- Paginación -->
+                       
+                    </div>
+                </div>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+</main>
+<footer>
+  <p> Cuyo Devs Derechos Reservados 2024</p>
+</footer>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/Tablaclientes.js"></script>
+<script src="/js/3forms.js"></script>
+<script src="/js/sidebar.js"></script>
+</body>
+</html>

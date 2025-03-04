@@ -14,10 +14,7 @@ import com.taller.AppEuro.repository.IAutoRepository;
 import com.taller.AppEuro.repository.IClienteRepository;
 import com.taller.AppEuro.repository.ICotizacionRepository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,69 +96,69 @@ public class CotizacionService {
 
     }
 
-    public List<Map<String, Object>> obtenerEstadisticas() {
-        // Obtener estadísticas agrupadas por categoría
-        List<Object[]> estadisticas = cotizacionrepo.getEstadisticasPorCategoria();
+     //FUNCION PARA TRAER POR MES LA ESTADISTICA
+    public List<Map<String, Object>> obtenerEstadisticasPorMes() {
+        // Obtenemos las estadísticas agrupadas por mes y categoría:
+        // Cada fila: [mes, categoría, cantidad, promedio]
+        List<Object[]> estadisticas = cotizacionrepo.getEstadisticasPorMesYCategoria();
 
-        // Filtrar objetos nulos en la lista
         if (estadisticas == null || estadisticas.isEmpty()) {
-            return java.util.Collections.emptyList(); // Retorna una lista vacía si no hay estadísticas
+            return Collections.emptyList();
         }
 
-        // Calcular el total de cotizaciones, ignorando nulos y evitando NullPointerException
-        int totalCotizaciones = estadisticas.stream()
-                .filter(e -> e != null && e[1] != null) // Filtra elementos nulos
-                .mapToInt(e -> ((Long) e[1]).intValue())
-                .sum();
+        // Primero, calculamos el total de cotizaciones para cada mes.
+        Map<Integer, Long> totalPorMes = new HashMap<>();
+        for (Object[] fila : estadisticas) {
+            Integer mes = (Integer) fila[0];
+            Long cantidad = (Long) fila[2];
+            totalPorMes.put(mes, totalPorMes.getOrDefault(mes, 0L) + cantidad);
+        }
 
-        // Procesar los resultados
+        // Luego, procesamos cada fila calculando el porcentaje relativo al total de su mes.
         return estadisticas.stream()
-                .filter(e -> e != null && e[0] != null && e[1] != null && e[2] != null) // Asegura que no haya nulos en las posiciones
-                .map(e -> {
-                    CategoriaReparacion categoriaReparacion = (CategoriaReparacion) e[0];
-                    Long cantidad = (Long) e[1];
-                    Double promedio = (Double) e[2];
+                .filter(fila -> fila != null && fila[0] != null && fila[1] != null
+                        && fila[2] != null && fila[3] != null)
+                .map(fila -> {
+                    Integer mes = (Integer) fila[0];
+                    CategoriaReparacion categoria = (CategoriaReparacion) fila[1];
+                    Long cantidad = (Long) fila[2];
+                    Double promedio = (Double) fila[3];
 
-                    // Convertir CategoriaReparacion a String
-                    String categoria = categoriaReparacion.toString();
+                    Long totalMes = totalPorMes.get(mes);
+                    double porcentaje = (cantidad * 100.0) / (totalMes != null && totalMes > 0 ? totalMes : 1);
 
-                    // Calcular el porcentaje de forma segura
-                    double porcentaje = (cantidad * 100.0) / totalCotizaciones;
-
-                    // Crear un mapa con los resultados
                     Map<String, Object> datos = new HashMap<>();
-                    datos.put("categoria", categoria);
+                    datos.put("mes", mes);
+                    datos.put("categoria", categoria.toString());
                     datos.put("cantidad", cantidad);
                     datos.put("promedio", promedio);
                     datos.put("porcentaje", porcentaje);
 
                     return datos;
-                }).collect(Collectors.toList());
+                })
+                .collect(Collectors.toList());
     }
-
-
-
 
 
     //----------------------------SEGUNDA MANERA---------------------------------//
     
-      @Transactional
-    public Cotizacion saveCotizacion(Long idCliente, Long monto, String descripcion, EstadoCotizacion estado, Encargado encargado, String formaPago) throws MiException {
-        // Validar cliente
-        Cliente cliente = clienterepo.findById(idCliente)
-                .orElseThrow(() -> new MiException("Cliente no encontrado"));
-
-        // Crear nueva cotización
-        Cotizacion cotizacion = new Cotizacion();
-        cotizacion.setMonto(monto);
-        cotizacion.setDescripcion(descripcion);
-        cotizacion.setEstado(estado);
-        cotizacion.setEncargado(encargado);
-        cotizacion.setFormaPago(formaPago);
-        cotizacion.setCliente(cliente);
-
-        return cotizacionrepo.save(cotizacion);
-    }
+//      @Transactional
+//    public Cotizacion saveCotizacion(Long idCliente, Long monto, String descripcion, EstadoCotizacion estado, Encargado encargado, String formaPago) throws MiException {
+//        // Validar cliente
+//        Cliente cliente = clienterepo.findById(idCliente)
+//                .orElseThrow(() -> new MiException("Cliente no encontrado"));
+//
+//        // Crear nueva cotización
+//        Cotizacion cotizacion = new Cotizacion();
+//        cotizacion.setMonto(monto);
+//        cotizacion.setDescripcion(descripcion);
+//        cotizacion.setEstado(estado);
+//        cotizacion.setEncargado(encargado);
+//        cotizacion.setFormaPago(formaPago);
+//        cotizacion.setCliente(cliente);
+//
+//        return cotizacionrepo.save(cotizacion);
+//    }
 
     public List<Cotizacion> obtenerTodasLasCotizaciones() {
         return cotizacionrepo.findAll();
@@ -189,9 +186,6 @@ public class CotizacionService {
     public void deleteCotizacion(Long id) {
         cotizacionrepo.deleteById(id);
     }    
-    
-//       public List<Cotizacion> obtenerCotizacionesPorClienteId(Long idCliente) {
-//        return cotizacionrepo.findbyidCliente(idCliente);
-//    }
+
     
 }
